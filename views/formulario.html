@@ -3,6 +3,7 @@
   <head>
     <title>Formulario</title>
     <link rel="stylesheet" href="/styles/estilos.css" />
+    <script src="/js/functions.js" defer></script>
   </head>
   <body>
     <div class="agrupar">
@@ -10,14 +11,14 @@
         <nav class="menu">
           <ul>
             <li><a href="/">historia</a></li>
-          <li><a href="/beneficios">beneficios</a></li>
-          <li><a href="/objetivos">objetivos</a></li>
-          <li><a href="/paises">paises</a></li>
-          <li><a href="/representantes">representantes</a></li>
-          <li><a href="/formulario">formulario</a></li>
-          <li><a href="/blog">blog</a></li>
-          <li><a href="/tienda">tienda</a></li>
-          <li><a href="/perfil">perfil</a></li>
+            <li><a href="/beneficios">beneficios</a></li>
+            <li><a href="/objetivos">objetivos</a></li>
+            <li><a href="/paises">paises</a></li>
+            <li><a href="/representantes">representantes</a></li>
+            <li><a href="/formulario">formulario</a></li>
+            <li><a href="/blog">blog</a></li>
+            <li><a href="/tienda">tienda</a></li>
+            <li><a href="/perfil">perfil</a></li>
           </ul>
         </nav>
       </header>
@@ -26,7 +27,10 @@
         <hgroup>
           <h1 class="title">Formulario de registro</h1>
 
-          <form action="/formulario" id="for" method="post" name="formulario" aria-placeholder="formulario" autofocus="">
+          <form
+            id="formulario"
+            method="post"
+          >
             <ul>
               <li>
                 <label for="name_user">Nombre:</label>
@@ -36,6 +40,7 @@
                   class="input"
                   required
                   placeholder="name"
+                  autofocus=""
                 />
               </li>
               <li>

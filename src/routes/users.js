@@ -1,7 +1,7 @@
 import { Router } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { pool } from '../db/database.js'
+import { pool } from "../db/database.js";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.get("/formulario", (req, res) => {
 });
 
 router.post("/formulario", async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const { name, mail, password, modality } = req.body;
 
@@ -27,20 +27,21 @@ router.post("/formulario", async (req, res) => {
     }
 
     const newUser = {
-        name: name,
-        mail: mail,
-        password: password,
-        modality: modality
+      name,
+      mail,
+      password,
+      modality
     };
 
     await pool.query("INSERT INTO users SET ?", [newUser]);
 
-    res.send("Usuario registrado correctamente");
-    
+    res.json({
+      success: true,
+      message: "Usuario registrado correctamente"
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error al registrar usuario");
-   
   }
 });
 

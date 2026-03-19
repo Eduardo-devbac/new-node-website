@@ -25,9 +25,6 @@ website.use(express.text());
 website.use(express.json())
 website.use(morgan('dev'))
 website.use(urlencoded({extended: true}))
-website.use((res, req, next) => {
-    next()
-})
 
 //routes
 website.use(home)
