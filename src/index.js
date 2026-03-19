@@ -35,9 +35,6 @@ website.use(users)
 //public
 website.use(express.static("public"));
 
-console.log(process.env.DB_USER);
-website.listen(website.get('port'));
-website.listen(process.env.DB_PORT || 3000)
-console.log(`server ${website.get('app name')} on port ${website.get('port')}`)
+
 export default website;
 
