@@ -33,7 +33,7 @@ website.use(users)
 //global variables
 
 //public
-website.use(express.static("public"));
+website.use(express.static(path.join(__dirname, "../public")));
 
 
 export default website;
