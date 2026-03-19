@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Formulario</title>
+    <link rel="stylesheet" href="/styles/estilos.css" />
+  </head>
+  <body>
+    <div class="agrupar">
+      <header class="header">
+        <nav class="menu">
+          <ul>
+            <li><a href="/">historia</a></li>
+          <li><a href="/beneficios">beneficios</a></li>
+          <li><a href="/objetivos">objetivos</a></li>
+          <li><a href="/paises">paises</a></li>
+          <li><a href="/representantes">representantes</a></li>
+          <li><a href="/formulario">formulario</a></li>
+          <li><a href="/blog">blog</a></li>
+          <li><a href="/tienda">tienda</a></li>
+          <li><a href="/perfil">perfil</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="seccion">
+        <hgroup>
+          <h1 class="title">Formulario de registro</h1>
+
+          <form action="/formulario" id="for" method="post" name="formulario" aria-placeholder="formulario" autofocus="">
+            <ul>
+              <li>
+                <label for="name_user">Nombre:</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="input"
+                  required
+                  placeholder="name"
+                />
+              </li>
+              <li>
+                <label for="mail">Correo electrónico:</label>
+                <input
+                  type="email"
+                  name="mail"
+                  class="input"
+                  minlength="8"
+                  required
+                  placeholder="mail"
+                />
+              </li>
+              <li>
+                <label for="password">Contraseña:</label>
+                <input
+                  type="password"
+                  name="password"
+                  class="input"
+                  minlength="8"
+                  required
+                  placeholder="password"
+                />
+                <label for="modalidad">modalidad que practicas</label>
+                <input
+                  type="text"
+                  name="modality"
+                  class="input"
+                  maxlength="12"
+                  placeholder="modality"
+                  required
+                />
+              </li>
+            </ul>
+            <button class="btn" type="submit">Enviar</button>
+          </form>
+        </hgroup>
+      </section>
+
+      <footer class="pie">DERECHOS REVERVADOS 2022-2023</footer>
+    </div>
+  </body>
+</html>

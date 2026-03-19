@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda de Ciclismo</title>
+    <link rel="stylesheet" href="/styles/estilos.css" />
+    <script src="/js/functions.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">historia</a></li>
+          <li><a href="/beneficios">beneficios</a></li>
+          <li><a href="/objetivos">objetivos</a></li>
+          <li><a href="/paises">paises</a></li>
+          <li><a href="/representantes">representantes</a></li>
+          <li><a href="/formulario">formulario</a></li>
+          <li><a href="/blog">blog</a></li>
+          <li><a href="/tienda">tienda</a></li>
+          <li><a href="/perfil">perfil</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="title">
+        <h1>Tienda de Ciclismo</h1>
+        <p>Los mejores productos para tu bicicleta</p>
+      </section>
+
+      <section>
+        <h2 style="margin-bottom: 16px">Categorías</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="card-body">
+              <h3>Bicicletas</h3>
+              <p>Ruta, montaña, urbana y más</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h3>Cascos</h3>
+              <p>Seguridad y aerodinámica</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h3>Ropa</h3>
+              <p>Maillots, culotes y más</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h3>Accesorios</h3>
+              <p>Todo lo que necesitas</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Productos destacados</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="card-body">
+              <h3>Bicicleta de Ruta Pro</h3>
+              <p>Cuadro de carbono, grupo Shimano 105</p>
+              <p id="precio">$25,000 MNX</p>
+              <button class="btn btn_sale">Agregar al carrito</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h3>Casco Aerodinámico</h3>
+              <p>Ventilación optimizada, cierre magnético</p>
+              <p id="precio">$1,800 MNX</p>
+              <button class="btn btn_sale">Agregar al carrito</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h3>Maillot Pro Team</h3>
+              <p>Tela transpirable, corte ergonómico</p>
+              <p id="precio">$950 MNX</p>
+              <button class="btn btn_sale">Agregar al carrito</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h3>Zapatillas de Carbono</h3>
+              <p>Suela rígida, cierre BOA</p>
+              <p id="precio">$3,200 MNX</p>
+              <button class="btn btn_sale">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="seccion" style="max-width: 600px">
+        <h2 class="title">¿Buscas algo específico?</h2>
+        <input
+          type="text"
+          class="input"
+          id="busqueda"
+          placeholder="Buscar productos..."
+        />
+        <button class="btn" id="boton" style="margin-top: 12px">Buscar</button>
+      </section>
+
+      <section class="seccion">
+        <h2 class="title">Lista de compra</h2>
+        <ul id="lista-compra" style="list-style: none; padding: 0"></ul>
+        <p id="total">Total:</p>
+      </section>
+    </main>
+
+    <footer class="pie">
+      <p>&copy; 2025 Tienda de Ciclismo. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>
