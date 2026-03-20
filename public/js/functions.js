@@ -24,7 +24,7 @@ if (form) {
     modality: form.modality.value
   };
 
-  const response = await fetch("/formulario", {
+  const response = await fetch(`${window.API_URL}/formulario`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
