@@ -9,11 +9,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 router.get("/perfil", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../views/perfil.html"));
+  res.sendFile(path.join(__dirname, "../views/perfil.html"));
 });
 
 router.get("/formulario", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../views/formulario.html"));
+  res.sendFile(path.join(__dirname, "../views/formulario.html"));
 });
 
 router.post("/formulario", async (req, res) => {
