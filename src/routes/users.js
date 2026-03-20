@@ -13,7 +13,7 @@ router.get("/perfil", (req, res) => {
 });
 
 router.get("/formulario", (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), "views/formulario"));
+  res.sendFile(path.resolve(process.cwd(), "views/formulario.html"));
 });
 
 router.post("/formulario", async (req, res) => {
