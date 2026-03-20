@@ -10,7 +10,7 @@ export const pool = mysql.createPool({
   database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT,
   ssl: {
-    rejectUnauthorized: true
+    rejectUnauthorized: false
   }
 });
 pool.getConnection((err, connection) => {
