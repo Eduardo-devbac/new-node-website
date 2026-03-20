@@ -1,1 +1,1 @@
-window.API_URL = "https://TU_BACKEND.railway.app";
+window.API_URL = "new-node-website-production.up.railway.app";
