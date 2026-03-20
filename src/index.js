@@ -35,6 +35,11 @@ website.use(users)
 //public
 website.use(express.static(path.join(__dirname, "../public")));
 
+// Start server
+const port = website.get("port");
+website.listen(port, () => {
+  console.log(`Servidor corriendo en puerto ${port}`);
+});
 
 export default website;
 
