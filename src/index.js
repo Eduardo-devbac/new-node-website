@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //settings
-website.set("port", 3000);
+website.set("port", process.env.PORT || 3000);
 website.set("view engine", "ejs");
 website.set("views", path.join(__dirname, "src/views"));
 website.set("app name", "CRUD");
