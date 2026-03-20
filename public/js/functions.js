@@ -24,7 +24,7 @@ if (form) {
     modality: form.modality.value
   };
 
-  const response = await fetch("https://new-node-website-production.up.railway.app", {
+  const response = await fetch("https://new-node-website-production.up.railway.app/formulario", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
