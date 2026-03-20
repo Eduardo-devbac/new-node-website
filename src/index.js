@@ -8,39 +8,32 @@ import ejs from "ejs";
 import dotenv from "dotenv";
 import cors from "cors";
 
-//initializacions
+dotenv.config();
+
 const website = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//settings
+// SETTINGS
 website.set("port", process.env.PORT || 3000);
 website.set("view engine", "ejs");
-website.set("views", path.join(__dirname, "src/views"));
-website.set("app name", "CRUD");
-dotenv.config();
+website.set("views", path.join(process.cwd(), "src/views"));
 
-website.use(
-  cors({
-    origin: "*",
-  }),
-);
-
-//middlewares
-website.use(express.text());
+// MIDDLEWARES
+website.use(cors({ origin: "*" }));
 website.use(express.json());
-website.use(morgan("dev"));
+website.use(express.text());
 website.use(urlencoded({ extended: true }));
+website.use(morgan("dev"));
 
-//routes
+// ROUTES
 website.use(home);
 website.use(users);
 
-//global variables
+// STATIC FILES
+website.use(express.static(path.join(process.cwd(), "public")));
 
-//public
-website.use(express.static(path.join(__dirname, "../public")));
-
+// START SERVER
 const port = website.get("port");
 website.listen(port, () => {
   console.log(`Servidor corriendo en puerto ${port}`);
