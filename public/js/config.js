@@ -1,0 +1,1 @@
+window.API_URL = "https://new-node-website-production.up.railway.app";
