@@ -4,7 +4,9 @@ const botones = document.querySelectorAll(".btn_blog");
 const listsale = document.querySelectorAll(".btn_sale");
 const listacompra = document.getElementById("lista-compra");
 const cerrarsesion = document.getElementById("cerrar_sesion");
+const responseBox = document.getElementById("respuesta-formualrio");
 var total = 0;
+
 
 if (button) {
   button.addEventListener("click", function () {
@@ -32,9 +34,27 @@ if (form) {
     body: JSON.stringify(data)
   });
 
+
   const result = await response.json();
 
-  alert(result.message);
+
+    if (result.success === true) {
+      responseBox.innerHTML = `
+        <div class="success-card">
+          <h2>${result.message}</h2>
+          <p><strong>Nombre:</strong> ${data.name}</p>
+          <p><strong>Correo:</strong> ${data.mail}</p>
+          <p><strong>Modalidad:</strong> ${data.modality}</p>
+        </div>
+      `;
+    } else {
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h2>Error</h2>
+          <p>${result.message || "Ocurrió un error inesperado"}</p>
+        </div>
+      `;
+    }
 });
 }
 
@@ -77,9 +97,6 @@ function totalCompra() {
       const mostratotal = document.getElementById("total");
       listacompra.appendChild(mostratotal);
       mostratotal.textContent = "Total: " + total;
-      console.log(precioTexto);
-      console.log(costo);
-      console.log(total);
     });
   });
 }

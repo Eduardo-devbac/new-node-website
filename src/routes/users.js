@@ -17,32 +17,38 @@ router.get("/formulario", (req, res) => {
 });
 
 router.post("/formulario", async (req, res) => {
-  console.log(req.body);
+
   try {
     const { name, mail, password, modality } = req.body;
 
     // VALIDACIÓN
     if (!name || !mail || !password || !modality) {
-      return res.send("Todos los campos son obligatorios");
+      return res.json({
+        success: false,
+        message: "Todos los campos son obligatorios"
+      });
     }
 
-    const newUser = {
-      name,
-      mail,
-      password,
-      modality
-    };
+    const newUser = { name, mail, password, modality };
 
     await pool.query("INSERT INTO users SET ?", [newUser]);
 
-    res.json({
+    // ✔ ESTA ES LA RESPUESTA CORRECTA
+    return res.json({
       success: true,
-      message: "Usuario registrado correctamente"
+      message: "Usuario registrado correctamente",
+      data: newUser
     });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error al registrar usuario");
+    console.error("ERROR EN POST /formulario:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Error interno en el servidor"
+    });
   }
 });
+
 
 export default router;

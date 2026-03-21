@@ -129,6 +129,50 @@ article a {
     text-align: left;
 }
 
+/* Contenedor que centra la tarjeta */
+#respuesta-formualrio {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Tarjeta base */
+.success-card, .error-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  animation: fadeIn 0.4s ease-out;
+  text-align: center;
+}
+
+/* Tarjeta de éxito */
+.success-card {
+  background: #e8fff0;
+  border-left: 6px solid #2ecc71;
+}
+
+/* Tarjeta de error */
+.error-card {
+  background: #ffeaea;
+  border-left: 6px solid #e74c3c;
+}
+
+/* Título */
+.success-card h2,
+.error-card h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* Texto */
+.success-card p,
+.error-card p {
+  margin: 8px 0;
+  font-size: 1rem;
+}
 
 /* Formulario */
 .seccion {

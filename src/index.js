@@ -7,6 +7,7 @@ import users from "./routes/users.js";
 import ejs from "ejs";
 import dotenv from "dotenv";
 import cors from "cors";
+import passport from 'passport'
 
 dotenv.config();
 
