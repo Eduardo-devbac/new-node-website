@@ -2,6 +2,8 @@ import { Router } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { pool } from "../db/database.js";
+import passport from "passport";
+import healpers from "../lib/helpers.js";
 
 const router = Router();
 
@@ -21,7 +23,6 @@ router.post("/formulario", async (req, res) => {
   try {
     const { name, mail, password, modality } = req.body;
 
-    // VALIDACIÓN
     if (!name || !mail || !password || !modality) {
       return res.json({
         success: false,
@@ -31,9 +32,10 @@ router.post("/formulario", async (req, res) => {
 
     const newUser = { name, mail, password, modality };
 
+    newUser.password = await healpers.encryptingpassword(password)
+
     await pool.query("INSERT INTO users SET ?", [newUser]);
 
-    // ✔ ESTA ES LA RESPUESTA CORRECTA
     return res.json({
       success: true,
       message: "Usuario registrado correctamente",
@@ -49,6 +51,12 @@ router.post("/formulario", async (req, res) => {
     });
   }
 });
+
+router.post('/formulario', passport.authenticate('registro-local', {
+      successRedirect: '/perfil',
+      failureRedirect: '/formulario',
+      failureFlash: true
+    }))
 
 
 export default router;
