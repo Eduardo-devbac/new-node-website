@@ -7,7 +7,7 @@ import users from "./routes/users.js";
 import ejs from "ejs";
 import dotenv from "dotenv";
 import cors from "cors";
-import passport from "./lib/passport.js";
+/* import passport from "./lib/passport.js"; */
 import session from "express-session";
 import mysqlSession from "express-mysql-session";
 import pool from "./db/database.js";
@@ -17,11 +17,11 @@ dotenv.config();
 const website = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const MySQLStore = mysqlSession(session)
+/* const MySQLStore = mysqlSession(session)
 const sessionStore = new MySQLStore({
   expiration: 1000 * 60 * 60 * 24,
     createDatabaseTable: true
-}, pool)
+}, pool) */
 
 // SETTINGS
 website.set("port", process.env.PORT || 3000);
@@ -34,7 +34,7 @@ website.use(express.json());
 website.use(express.text());
 website.use(urlencoded({ extended: true }));
 website.use(morgan("dev"));
-website.use(
+/* website.use(
   session({
     secret: "node-session",
     resave: false,
@@ -48,7 +48,7 @@ website.use(
   }),
 );
 website.use(passport.initialize());
-website.use(passport.session());
+website.use(passport.session()); */
 
 // ROUTES
 website.use(home);

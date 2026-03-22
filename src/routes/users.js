@@ -52,11 +52,7 @@ router.post("/formulario", async (req, res) => {
   }
 });
 
-router.post('/formulario', passport.authenticate('registro-local', {
-      successRedirect: '/perfil',
-      failureRedirect: '/formulario',
-      failureFlash: true
-    }))
+
 
 
 export default router;
