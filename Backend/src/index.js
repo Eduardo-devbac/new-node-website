@@ -29,7 +29,11 @@ website.set("view engine", "ejs");
 website.set("views", path.join(process.cwd(), "src/views"));
 
 // MIDDLEWARES
-website.use(cors({ origin: "*" }));
+app.use(cors({
+  origin: "http://new-node-website.vercel.app",
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 website.use(express.json());
 website.use(express.text());
 website.use(urlencoded({ extended: true }));
