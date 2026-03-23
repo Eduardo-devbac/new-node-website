@@ -29,7 +29,11 @@ website.set("view engine", "ejs");
 website.set("views", path.join(process.cwd(), "src/views"));
 
 // MIDDLEWARES
-website.use(cors({ origin: "*" }));
+website.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"]
+}));
 website.use(express.json());
 website.use(express.text());
 website.use(urlencoded({ extended: true }));
