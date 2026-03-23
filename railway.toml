@@ -1,0 +1,6 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "cd Backend && npm install"
+
+[start]
+startCommand = "cd Backend && node src/index.js"
