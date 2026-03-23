@@ -7,7 +7,7 @@ import users from "./routes/users.js";
 import ejs from "ejs";
 import dotenv from "dotenv";
 import cors from "cors";
-import passport from "./lib/passport.js";
+/* import passport from "./lib/passport.js"; */
 import session from "express-session";
 import mysqlSession from "express-mysql-session";
 import pool from "./db/database.js";
@@ -29,7 +29,7 @@ website.set("view engine", "ejs");
 website.set("views", path.join(process.cwd(), "src/views"));
 
 // MIDDLEWARES
-app.use(cors({
+website.use(cors({
   origin: "http://new-node-website.vercel.app",
   methods: ["GET", "POST"],
   credentials: true
@@ -51,9 +51,9 @@ website.use(
     },
   }),
 );
-website.use(passport.initialize());
+/* website.use(passport.initialize());
 website.use(passport.session());
-
+ */
 // ROUTES
 website.use(home);
 website.use(users);

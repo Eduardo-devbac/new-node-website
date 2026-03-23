@@ -1,4 +1,4 @@
-import passport from "passport";
+/* import passport from "passport";
 import { Strategy } from "passport-local";
 
 passport.use(
@@ -15,3 +15,4 @@ passport.serializeUser((usr, done) => {
 })
 
 export default passport;
+ */
