@@ -1,25 +1,10 @@
 import { Router } from "express";
-import path from "path";
-import { fileURLToPath } from "url";
-import { pool } from "../db/database.js";
-import passport from "passport";
+import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 
 const router = Router();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-router.get("/perfil", (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), "../frontend/public/pages/perfil.html"));
-});
-
-router.get("/formulario", (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), "../frontend/public/pages/formulario.html"));
-});
-
 router.post("/formulario", async (req, res) => {
-
   try {
     const { name, mail, password, modality } = req.body;
 
@@ -31,8 +16,7 @@ router.post("/formulario", async (req, res) => {
     }
 
     const newUser = { name, mail, password, modality };
-
-    newUser.password = await healpers.encryptingpassword(password)
+    newUser.password = await healpers.encryptingpassword(password);
 
     await pool.query("INSERT INTO users SET ?", [newUser]);
 
@@ -52,7 +36,7 @@ router.post("/formulario", async (req, res) => {
   }
 });
 
-
-
-
 export default router;
+
+
+
