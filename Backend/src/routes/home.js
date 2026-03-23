@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 router.get('/', (req, res) => {
-     res.sendFile(path.join(process.cwd(), "../frontend/public/pages/historia.html"));
+     res.sendFile(path.join(process.cwd(), "../frontend/public/index.html"));
 }) 
 
 router.get('/blog', (req, res) => {
