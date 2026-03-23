@@ -54,8 +54,8 @@ website.use(passport.session()); */
 website.use(home);
 website.use(users);
 
-// STATIC FILES
-website.use(express.static(path.join(process.cwd(), "public")));
+website.use(express.static(path.join(process.cwd(), "../frontend/public")));
+
 
 // START SERVER
 const port = website.get("port");
