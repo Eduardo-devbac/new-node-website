@@ -1,7 +1,0 @@
-{
-  "name": "root",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "cd Backend && node src/index.js"
-  }
-}
