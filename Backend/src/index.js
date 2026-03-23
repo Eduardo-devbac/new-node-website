@@ -54,7 +54,7 @@ website.use(passport.session()); */
 website.use(home);
 website.use(users);
 
-website.use(express.static(path.join(process.cwd(), "../frontend/public")));
+
 
 
 // START SERVER
