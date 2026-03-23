@@ -1,0 +1,6 @@
+{
+  "builds": [],
+  "routes": [
+    { "src": "/(.*)", "dest": "/frontend/$1" }
+  ]
+}
