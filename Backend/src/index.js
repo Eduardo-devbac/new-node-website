@@ -26,7 +26,7 @@ const sessionStore = new MySQLStore({
 // SETTINGS
 website.set("port", process.env.PORT || 3000);
 website.set("view engine", "ejs");
-website.set("views", path.join(process.cwd(), "src/views"));
+/* website.set("views", path.join(process.cwd(), "src/views")); */
 
 // MIDDLEWARES
 website.use(cors({
@@ -59,12 +59,11 @@ website.use(home);
 website.use(users);
 
 // STATIC FILES
-website.use(express.static(path.join(process.cwd(), "public")));
+website.use(express.static(path.join(__dirname, "../../frontend/public")));
 
 // START SERVER
 const port = website.get("port");
 website.listen(port, () => {
   console.log(`Servidor corriendo en puerto ${port}`);
 });
-
 export default website;
