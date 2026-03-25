@@ -1,10 +1,21 @@
 import { Router } from "express";
 import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
+import passport from "passport";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const router = Router();
 
-router.post("/formulario", async (req, res) => {
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  return res.redirect("/formulario.html");
+}
+
+router.post("/formulario", async (req, res, next) => {
   try {
     const { name, mail, password, modality } = req.body;
 
@@ -15,15 +26,65 @@ router.post("/formulario", async (req, res) => {
       });
     }
 
-    const newUser = { name, mail, password, modality };
-    newUser.password = await healpers.encryptingpassword(password);
+    // 1. Revisar si el usuario ya existe
+    const [existing] = await pool.query(
+      "SELECT * FROM users WHERE mail = ?",
+      [mail]
+    );
 
-    await pool.query("INSERT INTO users SET ?", [newUser]);
+    if (existing.length > 0) {
+      const user = existing[0];
 
-    return res.json({
-      success: true,
-      message: "Usuario registrado correctamente",
-      data: newUser
+      // Validar contraseña
+      const validPassword = await healpers.encryptingpassword(password, user.password);
+
+      if (!validPassword) {
+        return res.json({
+          success: false,
+          message: "La contraseña no coincide con la cuenta existente"
+        });
+      }
+
+      // LOGIN AUTOMÁTICO
+      req.login(user, (err) => {
+        if (err) return next(err);
+
+        return res.json({
+          success: true,
+          message: "Inicio de sesión exitoso",
+          redirect: "/perfil"
+        });
+      });
+
+      return;
+    }
+
+    // 2. Si no existe → registrar
+    const newUser = {
+      name,
+      mail,
+      password: await healpers.encryptingpassword(password),
+      modality
+    };
+
+    const [result] = await pool.query("INSERT INTO users SET ?", [newUser]);
+
+    const [rows] = await pool.query(
+      "SELECT * FROM users WHERE id_users = ?",
+      [result.insertId]
+    );
+
+    const user = rows[0];
+
+    // LOGIN AUTOMÁTICO DESPUÉS DE REGISTRAR
+    req.login(user, (err) => {
+      if (err) return next(err);
+
+      return res.json({
+        success: true,
+        message: "Usuario registrado correctamente",
+        redirect: "/perfil"
+      });
     });
 
   } catch (error) {
@@ -36,7 +97,19 @@ router.post("/formulario", async (req, res) => {
   }
 });
 
+router.get("/perfil", isLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, "../../../frontend/perfil.html"));
+});
+
+router.get("/logout", (req, res) => {
+  req.logout(() => {
+    req.session.destroy(() => {
+      res.json({
+        success: true,
+        redirect: "/"
+      });
+    });
+  });
+});
+
 export default router;
-
-
-

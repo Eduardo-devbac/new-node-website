@@ -9,7 +9,7 @@ healpers.encryptingpassword = async (password) => {
 
 healpers.login = async (password, savedpassword) => {
     try{
-        await bcrypy.compare()
+        await bcrypy.compare(password, savedpassword)
       } catch {
         console.log(e)
       }

@@ -7,6 +7,8 @@ const cerrarsesion = document.getElementById("cerrar_sesion");
 const responseBox = document.getElementById("respuesta-formualrio");
 var total = 0;
 
+console.log("Botón cerrar sesión:", cerrarsesion); // <-- prueba
+
 
 if (button) {
   button.addEventListener("click", function () {
@@ -39,6 +41,11 @@ if (form) {
 
 
     if (result.success === true) {
+
+       if (result.redirect) {
+        window.location.href = result.redirect;
+        return;
+      }
       responseBox.innerHTML = `
         <div class="success-card">
           <h2>${result.message}</h2>
@@ -66,10 +73,22 @@ botones.forEach(function (boton) {
   });
 });
 
+
+
 if (cerrarsesion) {
-  cerrarsesion.addEventListener("click", function (event) {
+  cerrarsesion.addEventListener("click", async (event) => {
     event.preventDefault();
-    console.log("Sesión cerrada");
+
+    console.log("Click detectado"); // <-- prueba
+
+    const res = await fetch("/logout");
+    const data = await res.json();
+
+    console.log("Respuesta del servidor:", data); // <-- prueba
+
+    if (data.success) {
+      window.location.href = data.redirect;
+    }
   });
 }
 

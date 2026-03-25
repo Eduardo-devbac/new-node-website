@@ -1,17 +1,58 @@
-/* import passport from "passport";
-import { Strategy } from "passport-local";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import pool from "../db/database.js";
+import helpers from "./helpers.js";
 
 passport.use(
-  "registro-local",
-  new Strategy({
-    usernameField: "name",
-    passwordField: "password",
-    passReqToCallback: true,
-  }),
+  "login-local",
+  new LocalStrategy(
+    {
+      usernameField: "mail",
+      passwordField: "password",
+      passReqToCallback: true,
+    },
+    async (req, mail, password, done) => {
+      try {
+        const [rows] = await pool.query(
+          "SELECT * FROM users WHERE mail = ?",
+          [mail]
+        );
+
+        if (rows.length === 0) {
+          return done(null, false, { message: "Correo no registrado" });
+        }
+
+        const user = rows[0];
+
+        const validPassword = await helpers.encryptingpassword(
+          password,
+          user.password
+        );
+
+        if (!validPassword) {
+          return done(null, false, { message: "Contraseña incorrecta" });
+        }
+
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
 );
 
-passport.serializeUser((usr, done) => {
-    
-})
+// SERIALIZAR
+passport.serializeUser((user, done) => {
+  done(null, user.id_users);
+});
 
-export default passport; */
+// DESERIALIZAR
+passport.deserializeUser(async (id, done) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM users WHERE id_users = ?",
+    [id]
+  );
+  done(null, rows[0]);
+});
+
+export default passport;
