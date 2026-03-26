@@ -27,7 +27,7 @@
             <li><a href="./formulario.html">registro</a></li>
             <li><a href="./blog.html">blog</a></li>
             <li><a href="./tienda.html">tienda</a></li>
-            <li><a href="./perfil.html">perfil</a></li>
+            <a href="/perfil">perfil</a>
           </ul>
         </nav>
       </header>
@@ -64,24 +64,37 @@
 
               <li>
                 <label for="password">Contraseña:</label>
-                <input
-                  type="password"
-                  name="password"
-                  class="input"
-                  minlength="8"
-                  required
-                  placeholder="password"
-                />
 
-                <label for="modalidad">Modalidad que practicas:</label>
-                <input
-                  type="text"
-                  name="modality"
-                  class="input"
-                  maxlength="12"
-                  placeholder="modality"
-                  required
-                />
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="input"
+                    minlength="8"
+                    required
+                    placeholder="password"
+                  />
+
+                  <span id="togglePassword" class="eye-icon"></span>
+                </div>
+                <div class="input-group">
+                  <label for="modality">Modalidad</label>
+                  <select
+                    id="modality"
+                    name="modality"
+                    class="select-modalidad"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Selecciona una modalidad
+                    </option>
+                    <option value="XC">XC</option>
+                    <option value="Enduro">Enduro</option>
+                    <option value="Downhill">Downhill</option>
+                    <option value="Ruta">Ruta</option>
+                  </select>
+                </div>
               </li>
             </ul>
 

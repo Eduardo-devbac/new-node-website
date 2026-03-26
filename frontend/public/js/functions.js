@@ -6,8 +6,9 @@ const listacompra = document.getElementById("lista-compra");
 const cerrarsesion = document.getElementById("cerrar_sesion");
 const responseBox = document.getElementById("respuesta-formualrio");
 var total = 0;
-
-console.log("Botón cerrar sesión:", cerrarsesion); // <-- prueba
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+const modalidadSelect = document.getElementById("modalidad");
 
 
 if (button) {
@@ -79,12 +80,8 @@ if (cerrarsesion) {
   cerrarsesion.addEventListener("click", async (event) => {
     event.preventDefault();
 
-    console.log("Click detectado"); // <-- prueba
-
     const res = await fetch("/logout");
     const data = await res.json();
-
-    console.log("Respuesta del servidor:", data); // <-- prueba
 
     if (data.success) {
       window.location.href = data.redirect;
@@ -117,6 +114,16 @@ function totalCompra() {
       listacompra.appendChild(mostratotal);
       mostratotal.textContent = "Total: " + total;
     });
+  });
+}
+
+if (togglePassword) {
+  togglePassword.addEventListener("click", () => {
+    const isPassword = passwordInput.type === "password";
+
+    passwordInput.type = isPassword ? "text" : "password";
+
+    togglePassword.classList.toggle("open");
   });
 }
 

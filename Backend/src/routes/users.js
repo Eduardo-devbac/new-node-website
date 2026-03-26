@@ -36,7 +36,7 @@ router.post("/formulario", async (req, res, next) => {
       const user = existing[0];
 
       // Validar contraseña
-      const validPassword = await healpers.encryptingpassword(password, user.password);
+      const validPassword = await healpers.matchPassword(password, user.password);
 
       if (!validPassword) {
         return res.json({
@@ -63,7 +63,7 @@ router.post("/formulario", async (req, res, next) => {
     const newUser = {
       name,
       mail,
-      password: await healpers.encryptingpassword(password),
+      password: await healpers.encryptPassword(password),
       modality
     };
 
@@ -98,7 +98,7 @@ router.post("/formulario", async (req, res, next) => {
 });
 
 router.get("/perfil", isLoggedIn, (req, res) => {
-  res.sendFile(path.join(__dirname, "../../../frontend/perfil.html"));
+  res.render("perfil", { user: req.user });
 });
 
 router.get("/logout", (req, res) => {

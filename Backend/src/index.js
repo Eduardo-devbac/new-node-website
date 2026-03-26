@@ -25,9 +25,9 @@ const sessionStore = new MySQLStore({
 
 // SETTINGS
 website.set("port", process.env.PORT || 3000);
-/* website.set("view engine", "ejs");
-website.set("views", path.join(process.cwd(), "src/views"));
- */
+website.set("view engine", "ejs");
+website.set("views", path.join(__dirname, "../views"));
+ 
 
 // MIDDLEWARES
 website.use(cors({
@@ -58,7 +58,6 @@ website.use(passport.session());
 // ROUTES
 website.use(home);
 website.use(users);
-
 
 website.use(express.static(path.join(process.cwd(), "../frontend")));
 

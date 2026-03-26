@@ -13,20 +13,18 @@ passport.use(
     },
     async (req, mail, password, done) => {
       try {
-        const [rows] = await pool.query(
-          "SELECT * FROM users WHERE mail = ?",
-          [mail]
-        );
+        const [rows] = await pool.query("SELECT * FROM users WHERE mail = ?", [
+          mail,
+        ]);
 
         if (rows.length === 0) {
           return done(null, false, { message: "Correo no registrado" });
         }
 
         const user = rows[0];
-
-        const validPassword = await helpers.encryptingpassword(
+        const validPassword = await helpers.matchPassword(
           password,
-          user.password
+          user.password,
         );
 
         if (!validPassword) {
@@ -37,8 +35,8 @@ passport.use(
       } catch (error) {
         return done(error);
       }
-    }
-  )
+    },
+  ),
 );
 
 // SERIALIZAR
@@ -48,11 +46,14 @@ passport.serializeUser((user, done) => {
 
 // DESERIALIZAR
 passport.deserializeUser(async (id, done) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM users WHERE id_users = ?",
-    [id]
-  );
-  done(null, rows[0]);
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE id_users = ?", [
+      id,
+    ]);
+    done(null, rows[0]);
+  } catch (e) {
+    done(e);
+  }
 });
 
 export default passport;
