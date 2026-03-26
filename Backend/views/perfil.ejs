@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../../frontend/public/styles/estilos.css" />
-    <script src="../../frontend/public/js/functions.js" defer></script>
+    <link rel="stylesheet" href="/public/styles/estilos.css">
+<script src="/public/js/functions.js" defer></script>
 
     <title>Perfil</title>
   </head>
@@ -46,11 +46,6 @@
           </div>
 
           <div>
-            <label>Contraseña</label>
-            <p>********</p>
-          </div>
-
-          <div>
             <label>Modalidad favorita</label>
             <p><%= user.modality %></p>
           </div>
@@ -59,7 +54,6 @@
             class="btn"
             style="background-color: #c0392b"
             id="cerrar_sesion"
-            onclick="window.location.href='/logout'"
           >
             Cerrar sesión
           </button>

@@ -59,7 +59,11 @@ website.use(passport.session());
 website.use(home);
 website.use(users);
 
-website.use(express.static(path.join(process.cwd(), "../frontend")));
+// Servir HTML estático (index.html, blog.html, etc.)
+website.use(express.static(path.join(__dirname, "../Frontend")));
+
+// Servir CSS y JS desde /public
+website.use("/public", express.static(path.join(__dirname, "../Frontend/public")));
 
 // START SERVER
 const port = website.get("port");
