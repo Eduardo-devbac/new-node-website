@@ -411,38 +411,3 @@ textarea {
   }
 }
 
-/* --- MENÚ HAMBURGUESA --- */
-.hamburger {
-  display: none;
-  font-size: 28px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-}
-
-/* Ocultar menú en móvil */
-@media (max-width: 768px) {
-
-  .hamburger {
-    display: block;
-    z-index: 200;
-  }
-
-  nav ul {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: white;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px 0;
-    border-bottom: 1px solid #ddd;
-    display: none; /* oculto por defecto */
-  }
-
-  nav ul.show {
-    display: flex; /* se muestra cuando se abre */
-  }
-}
