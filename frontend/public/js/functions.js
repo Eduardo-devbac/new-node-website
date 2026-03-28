@@ -6,7 +6,10 @@ const listacompra = document.getElementById("lista-compra");
 const cerrarsesion = document.getElementById("cerrar_sesion");
 const responseBox = document.getElementById("respuesta-formualrio");
 var total = 0;
-
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+const modalidadSelect = document.getElementById("modalidad");
+const formlog = document.getElementById("formulario-sesion");
 
 if (button) {
   button.addEventListener("click", function () {
@@ -16,46 +19,87 @@ if (button) {
 }
 
 if (form) {
- form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const data = {
-    name: form.name.value,
-    mail: form.mail.value,
-    password: form.password.value,
-    modality: form.modality.value
-  };
+    const data = {
+      name: form.name.value,
+      mail: form.mail.value,
+      password: form.password.value,
+      modality: form.modality.value,
+    };
 
-  const response = await fetch(`${window.API_URL}/formulario`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  });
+    const response = await fetch(`${window.API_URL}/registro`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
+    const result = await response.json();
 
-  const result = await response.json();
+    if (result.redirect) {
+      window.location.href = result.redirect;
+      return;
+    }
 
-
-    if (result.success === true) {
+    if (result.success) {
       responseBox.innerHTML = `
         <div class="success-card">
-          <h2>${result.message}</h2>
-          <p><strong>Nombre:</strong> ${data.name}</p>
-          <p><strong>Correo:</strong> ${data.mail}</p>
-          <p><strong>Modalidad:</strong> ${data.modality}</p>
+          <h2>¡Listo!</h2>
+          <p>${result.message}</p>
         </div>
       `;
     } else {
       responseBox.innerHTML = `
         <div class="error-card">
           <h2>Error</h2>
-          <p>${result.message || "Ocurrió un error inesperado"}</p>
+          <p>${result.message}</p>
         </div>
       `;
     }
-});
+  });
+}
+
+if (formlog) {
+  formlog.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      mail: formlog.mail.value,
+      password: formlog.password.value,
+    };
+
+    const response = await fetch(`${window.API_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (result.redirect) {
+      window.location.href = result.redirect;
+      return;
+    }
+
+    if (result.success) {
+      responseBox.innerHTML = `
+        <div class="success-card">
+          <h2>¡Listo!</h2>
+          <p>${result.message}</p>
+        </div>
+      `;
+    } else {
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h2>Error</h2>
+          <p>${result.message}</p>
+        </div>
+      `;
+    }
+  });
 }
 
 botones.forEach(function (boton) {
@@ -67,9 +111,15 @@ botones.forEach(function (boton) {
 });
 
 if (cerrarsesion) {
-  cerrarsesion.addEventListener("click", function (event) {
+  cerrarsesion.addEventListener("click", async (event) => {
     event.preventDefault();
-    console.log("Sesión cerrada");
+
+    const res = await fetch("/logout");
+    const data = await res.json();
+
+    if (data.success) {
+      window.location.href = data.redirect;
+    }
   });
 }
 
@@ -98,6 +148,16 @@ function totalCompra() {
       listacompra.appendChild(mostratotal);
       mostratotal.textContent = "Total: " + total;
     });
+  });
+}
+
+if (togglePassword) {
+  togglePassword.addEventListener("click", () => {
+    const isPassword = passwordInput.type === "password";
+
+    passwordInput.type = isPassword ? "text" : "password";
+
+    togglePassword.classList.toggle("open");
   });
 }
 

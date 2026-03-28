@@ -315,3 +315,62 @@ textarea {
     transform: translateY(0);
   }
 }
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  background-image: url('../img/eye-close-line.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.25s;
+}
+
+.eye-icon:hover {
+  opacity: 1;
+}
+
+.eye-icon {
+  background-image: url('../img/eye-close-line.png');
+}
+
+.eye-icon.open {
+  background-image: url('../img/eye-line.png');
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.select-modalidad {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.select-modalidad:focus {
+  border-color: #4a90e2;
+  outline: none;
+}

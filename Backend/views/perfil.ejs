@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/public/styles/estilos.css">
+<script src="/public/js/functions.js" defer></script>
+
+    <title>Perfil</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <nav class="menu">
+            <%- include("partials/navbar") %>
+      </nav>
+    </header>
+
+    <main class="main">
+
+      <section class="seccion">
+        <div>
+          <h2 class="title"><%= user.name %></h2>
+        </div>
+
+        <div>
+          <div class="for ul li label">
+            <label>Nombre completo</label>
+            <p><%= user.name %></p>
+          </div>
+
+          <div>
+            <label>Correo electrónico</label>
+            <p><%= user.mail %></p>
+          </div>
+
+          <div>
+            <label>Modalidad favorita</label>
+            <p><%= user.modality %></p>
+          </div>
+
+          <button
+            class="btn"
+            style="background-color: #c0392b"
+            id="cerrar_sesion"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="pie">
+      <p>&copy; 2025 Tienda de Ciclismo. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

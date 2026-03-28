@@ -7,28 +7,18 @@
     <title>Formulario</title>
 
     <!-- CSS CORREGIDO -->
-    <link rel="stylesheet" href="./public/styles/estilos.css" />
+    <link rel="stylesheet" href="/public/styles/estilos.css" />
 
     <!-- JS CORREGIDO -->
-    <script src="./public/js/config.js" defer></script>
-    <script src="./public/js/functions.js" defer></script>
+    <script src="/public/js/config.js" defer></script>
+    <script src="/public/js/functions.js" defer></script>
   </head>
 
   <body>
     <div class="agrupar">
       <header class="header">
         <nav class="menu">
-          <ul>
-            <li><a href="./index.html">historia</a></li>
-            <li><a href="./beneficios.html">beneficios</a></li>
-            <li><a href="./objetivos.html">objetivos</a></li>
-            <li><a href="./paises.html">paises</a></li>
-            <li><a href="./representantes.html">representantes</a></li>
-            <li><a href="./formulario.html">registro</a></li>
-            <li><a href="./blog.html">blog</a></li>
-            <li><a href="./tienda.html">tienda</a></li>
-            <li><a href="./perfil.html">perfil</a></li>
-          </ul>
+          <%- include("partials/navbar") %>
         </nav>
       </header>
 
@@ -36,7 +26,7 @@
         <hgroup>
           <h1 class="title">Formulario de registro</h1>
 
-          <form id="formulario" method="post">
+          <form id="formulario" method="post" action="/registro">
             <ul>
               <li>
                 <label for="name_user">Nombre:</label>
@@ -64,24 +54,37 @@
 
               <li>
                 <label for="password">Contraseña:</label>
-                <input
-                  type="password"
-                  name="password"
-                  class="input"
-                  minlength="8"
-                  required
-                  placeholder="password"
-                />
 
-                <label for="modalidad">Modalidad que practicas:</label>
-                <input
-                  type="text"
-                  name="modality"
-                  class="input"
-                  maxlength="12"
-                  placeholder="modality"
-                  required
-                />
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="input"
+                    minlength="8"
+                    required
+                    placeholder="password"
+                  />
+
+                  <span id="togglePassword" class="eye-icon"></span>
+                </div>
+                <div class="input-group">
+                  <label for="modality">Modalidad</label>
+                  <select
+                    id="modality"
+                    name="modality"
+                    class="select-modalidad"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Selecciona una modalidad
+                    </option>
+                    <option value="XC">XC</option>
+                    <option value="Enduro">Enduro</option>
+                    <option value="Downhill">Downhill</option>
+                    <option value="Ruta">Ruta</option>
+                  </select>
+                </div>
               </li>
             </ul>
 

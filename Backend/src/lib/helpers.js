@@ -1,20 +1,19 @@
-import bcrypy from 'bcrypt'
-const healpers = {}
+import bcrypt from "bcrypt";
 
-healpers.encryptingpassword = async (password) => {
-    const salt = await bcrypy.genSalt(10);
-    const hash = await bcrypy.hash(password, salt);
-    return hash;
-}
+const helpers = {};
 
-healpers.login = async (password, savedpassword) => {
-    try{
-        await bcrypy.compare()
-      } catch {
-        console.log(e)
-      }
-      
-      
-}
+helpers.encryptPassword = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
+};
 
-export default healpers
+helpers.matchPassword = async (password, savedPassword) => {
+  try {
+    return await bcrypt.compare(password, savedPassword);
+  } catch (e) {
+    console.error("Error comparando contraseña:", e);
+    return false;
+  }
+};
+
+export default helpers;
