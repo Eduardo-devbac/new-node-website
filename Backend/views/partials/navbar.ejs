@@ -1,0 +1,24 @@
+<nav class="menu">
+  <ul>
+    <li><a href="/">historia</a></li>
+    <li><a href="/beneficios">beneficios</a></li>
+    <li><a href="/objetivos">objetivos</a></li>
+    <li><a href="/paises">paises</a></li>
+    <li><a href="/representantes">representantes</a></li>
+    <li><a href="/blog">blog</a></li>
+    <li><a href="/tienda">tienda</a></li>
+
+    <% if (!user) { %>
+      <li><a href="/registro">registro</a></li>
+      <li><a href="/login">iniciar sesión</a></li>
+    <% } else { %>
+      <li><a href="/perfil">perfil</a></li>
+      <li><a href="/logout">cerrar sesión</a></li>
+    <% } %>
+    
+     <div class="buscador">
+    <input type="text" id="busqueda" placeholder="Buscar..." />
+    <button type="submit" id="boton">Buscar</button>
+  </div>
+  </ul>
+</nav>

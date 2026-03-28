@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Formulario</title>
+
+    <!-- CSS CORREGIDO -->
     <link rel="stylesheet" href="/public/styles/estilos.css" />
+
+    <!-- JS CORREGIDO -->
     <script src="/public/js/config.js" defer></script>
     <script src="/public/js/functions.js" defer></script>
   </head>
@@ -14,27 +18,28 @@
     <div class="agrupar">
       <header class="header">
         <nav class="menu">
-          <ul>
-            <li><a href="./index.html">historia</a></li>
-            <li><a href="./beneficios.html">beneficios</a></li>
-            <li><a href="./objetivos.html">objetivos</a></li>
-            <li><a href="./paises.html">paises</a></li>
-            <li><a href="./representantes.html">representantes</a></li>
-            <li><a href="./formulario.html">registro</a></li>
-            <li><a href="./blog.html">blog</a></li>
-            <li><a href="./tienda.html">tienda</a></li>
-            <li><a href="./formulario-sesion.html">iniciar sesion</a></li>
-            <a href="/perfil">perfil</a>
-          </ul>
+          <%- include("partials/navbar") %>
         </nav>
       </header>
 
       <section class="seccion">
         <hgroup>
-          <h1 class="title">Formulario inicio de sesion</h1>
+          <h1 class="title">Formulario de registro</h1>
 
-          <form id="formulario-sesion" method="post" action="/login">
+          <form id="formulario" method="post" action="/registro">
             <ul>
+              <li>
+                <label for="name_user">Nombre:</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="input"
+                  required
+                  placeholder="name"
+                  autofocus
+                />
+              </li>
+
               <li>
                 <label for="mail">Correo electrónico:</label>
                 <input
@@ -62,6 +67,23 @@
                   />
 
                   <span id="togglePassword" class="eye-icon"></span>
+                </div>
+                <div class="input-group">
+                  <label for="modality">Modalidad</label>
+                  <select
+                    id="modality"
+                    name="modality"
+                    class="select-modalidad"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Selecciona una modalidad
+                    </option>
+                    <option value="XC">XC</option>
+                    <option value="Enduro">Enduro</option>
+                    <option value="Downhill">Downhill</option>
+                    <option value="Ruta">Ruta</option>
+                  </select>
                 </div>
               </li>
             </ul>

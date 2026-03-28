@@ -54,6 +54,10 @@ website.use(
 )
 website.use(passport.initialize());
 website.use(passport.session()); 
+website.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 
 // ROUTES
 website.use(home); 
@@ -62,11 +66,6 @@ website.use(users);
 
 // Servir HTML estático (index.html, blog.html, etc.)
 website.use(express.static(path.join(__dirname, "../../frontend")));
-
-// Servir CSS y JS desde /public
-
-
-
 
 
 // START SERVER

@@ -2,11 +2,8 @@ import { Router } from "express";
 import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 import passport from "passport";
-import { fileURLToPath } from "url";
-import path from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 const router = Router();
 
@@ -98,18 +95,20 @@ router.get("/perfil", isLoggedIn, (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../../frontend/formulario-sesion.html"));
+  res.render("formulario-sesion")
 });
 
 router.get("/logout", (req, res) => {
   req.logout(() => {
     req.session.destroy(() => {
-      res.json({
-        success: true,
-        redirect: "/"
-      });
+      res.redirect("/");
     });
   });
 });
+
+router.get("/registro", (req, res) => {
+  res.render("formulario")
+})
+
 
 export default router;

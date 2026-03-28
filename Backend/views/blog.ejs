@@ -4,32 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- CSS CORREGIDO -->
-    <link rel="stylesheet" href="./public/styles/estilos.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/styles/estilos.css" />
 
-    <!-- JS CORREGIDO -->
-    <script src="./public/js/functions.js" defer></script>
+    <!-- JS -->
+    <script src="/public/js/functions.js" defer></script>
 
     <title>Blog de Ciclismo</title>
   </head>
 
   <body>
-    <header class="header">
-      <nav class="menu">
-        <ul>
-          <li><a href="./index.html">historia</a></li>
-          <li><a href="./beneficios.html">beneficios</a></li>
-          <li><a href="./objetivos.html">objetivos</a></li>
-          <li><a href="./paises.html">paises</a></li>
-          <li><a href="./representantes.html">representantes</a></li>
-          <li><a href="./formulario.html">registro</a></li>
-          <li><a href="./blog.html">blog</a></li>
-          <li><a href="./tienda.html">tienda</a></li>
-          <li><a href="./formulario-sesion.html">iniciar sesion</a></li>
-          <a href="/perfil">perfil</a>
-        </ul>
-      </nav>
-    </header>
+
+    <!-- NAVBAR DINÁMICO -->
+    <%- include("partials/navbar") %>
 
     <main>
       <section class="title">
@@ -43,17 +30,12 @@
           <div>
             <span class="categoria">Tour de Francia</span>
 
-            <!-- IMAGEN CORREGIDA -->
-            <img src="./public/img/descargar.png" class="imag-prin" />
+            <img src="/public/img/descargar.png" class="imag-prin" />
 
             <h2>El mejor ataque de la historia del Tour</h2>
             <p class="fecha">12 de febrero, 2025</p>
             <p>
-              Uno de los ataques más legendarios en la historia del Tour de
-              Francia fue el realizado por Marco Pantani en 1998. Durante la
-              etapa 15, Pantani lanzó un ataque solitario en el Col du Galibier,
-              dejando atrás a todos sus rivales y ganando la etapa con una
-              ventaja impresionante.
+              Uno de los ataques más legendarios en la historia del Tour de Francia fue el realizado por Marco Pantani en 1998. Durante la etapa 15, Pantani lanzó un ataque solitario en el Col del Galibier, dejando atrás a todos sus rivales y ganando la etapa con una ventaja impresionante.
             </p>
             <a href="https://es.wikipedia.org/wiki/Marco_Pantani" class="leer-mas">Leer más</a>
 
@@ -67,16 +49,12 @@
           <div>
             <span class="categoria">Equipos</span>
 
-            <!-- IMAGEN CORREGIDA -->
-            <img src="./public/img/descargar (2).jfif" class="imag-prin" />
+            <img src="/public/img/descargar (2).jfif" class="imag-prin" />
 
             <h2>Los equipos más dominantes de la última década</h2>
             <p class="fecha">5 de febrero, 2025</p>
             <p>
-              En la última década, equipos como el Team Sky (ahora Ineos
-              Grenadiers) han dominado el ciclismo profesional. Con ciclistas
-              como Chris Froome y Geraint Thomas, han ganado múltiples Tours de
-              Francia y otras Grandes Vueltas.
+              En la última década, equipos como el Team Sky (ahora Ineos Grenadiers) han dominado el ciclismo profesional. Con ciclistas como Chris Froome y Geraint Thomas, han ganado múltiples Tours de Francia y otras Grandes Vueltas.
             </p>
             <a href="https://es.wikipedia.org/wiki/Ineos_Grenadiers" class="leer-mas">Leer más</a>
 
@@ -90,16 +68,12 @@
           <div>
             <span class="categoria">Ciclistas</span>
 
-            <!-- IMAGEN CORREGIDA -->
-            <img src="./public/img/descargar (3).jfif" class="imag-prin" />
+            <img src="/public/img/descargar (3).jfif" class="imag-prin" />
 
             <h2>Tadej Pogacar, el mejor de su generación</h2>
             <p class="fecha">28 de enero, 2025</p>
             <p>
-              Tadej Pogacar es considerado uno de los ciclistas más talentosos
-              de su generación. A sus 21 años, ganó el Tour de Francia en 2020,
-              y lo defendió exitosamente en 2021, mostrando un dominio absoluto
-              en las etapas de montaña.
+              Tadej Pogacar es considerado uno de los ciclistas más talentosos de su generación. A sus 21 años, ganó el Tour de Francia en 2020, y lo defendió exitosamente en 2021, mostrando un dominio absoluto en las etapas de montaña.
             </p>
             <a href="https://es.wikipedia.org/wiki/Tadej_Poga%C4%8Dar" class="leer-mas">Leer más</a>
 
