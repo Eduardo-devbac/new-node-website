@@ -97,6 +97,10 @@ router.get("/perfil", isLoggedIn, (req, res) => {
   res.render("perfil", { user: req.user });
 });
 
+router.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../../frontend/formulario-sesion.html"));
+});
+
 router.get("/logout", (req, res) => {
   req.logout(() => {
     req.session.destroy(() => {

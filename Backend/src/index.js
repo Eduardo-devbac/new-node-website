@@ -56,14 +56,16 @@ website.use(passport.initialize());
 website.use(passport.session()); 
 
 // ROUTES
-website.use(home);
+website.use(home); 
 website.use(users);
 
-// Servir HTML estático
+
+// Servir HTML estático (index.html, blog.html, etc.)
 website.use(express.static(path.join(__dirname, "../../frontend")));
 
-// Servir CSS y JS
-website.use("/public", express.static(path.join(__dirname, "../../frontend/public")));
+// Servir CSS y JS desde /public
+
+
 
 
 
