@@ -1,7 +1,9 @@
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
+import { Strategy as LocalStrategy, Strategy } from "passport-local";
 import pool from "../db/database.js";
 import helpers from "./helpers.js";
+
+
 
 passport.use(
   "login-local",
@@ -39,21 +41,13 @@ passport.use(
   ),
 );
 
-// SERIALIZAR
 passport.serializeUser((user, done) => {
   done(null, user.id_users);
 });
 
-// DESERIALIZAR
 passport.deserializeUser(async (id, done) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM users WHERE id_users = ?", [
-      id,
-    ]);
-    done(null, rows[0]);
-  } catch (e) {
-    done(e);
-  }
+  const [rows] = await pool.query("SELECT * FROM users WHERE id_users = ?", [id]);
+  done(null, rows[0]);
 });
 
 export default passport;

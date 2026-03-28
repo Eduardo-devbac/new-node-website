@@ -15,7 +15,7 @@ function isLoggedIn(req, res, next) {
   return res.redirect("/formulario.html");
 }
 
-router.post("/formulario", async (req, res, next) => {
+router.post("/registro", async (req, res) => {
   try {
     const { name, mail, password, modality } = req.body;
 
@@ -26,40 +26,19 @@ router.post("/formulario", async (req, res, next) => {
       });
     }
 
-    // 1. Revisar si el usuario ya existe
     const [existing] = await pool.query(
       "SELECT * FROM users WHERE mail = ?",
       [mail]
     );
 
     if (existing.length > 0) {
-      const user = existing[0];
-
-      // Validar contraseña
-      const validPassword = await healpers.matchPassword(password, user.password);
-
-      if (!validPassword) {
-        return res.json({
-          success: false,
-          message: "La contraseña no coincide con la cuenta existente"
-        });
-      }
-
-      // LOGIN AUTOMÁTICO
-      req.login(user, (err) => {
-        if (err) return next(err);
-
-        return res.json({
-          success: true,
-          message: "Inicio de sesión exitoso",
-          redirect: "/perfil"
-        });
+      return res.json({
+        success: false,
+        message: "Este correo ya está registrado",
+        redirect: "/login"   
       });
-
-      return;
     }
 
-    // 2. Si no existe → registrar
     const newUser = {
       name,
       mail,
@@ -76,9 +55,15 @@ router.post("/formulario", async (req, res, next) => {
 
     const user = rows[0];
 
-    // LOGIN AUTOMÁTICO DESPUÉS DE REGISTRAR
     req.login(user, (err) => {
-      if (err) return next(err);
+      if (err) {
+        console.error("Error al iniciar sesión automáticamente:", err);
+        return res.json({
+          success: true,
+          message: "Usuario registrado, pero inicia sesión manualmente",
+          redirect: "/login"
+        });
+      }
 
       return res.json({
         success: true,
@@ -88,7 +73,7 @@ router.post("/formulario", async (req, res, next) => {
     });
 
   } catch (error) {
-    console.error("ERROR EN POST /formulario:", error);
+    console.error("ERROR EN POST /registro:", error);
 
     return res.status(500).json({
       success: false,
@@ -96,6 +81,17 @@ router.post("/formulario", async (req, res, next) => {
     });
   }
 });
+
+router.post("/login",
+  passport.authenticate("login-local"),
+  (req, res) => {
+    return res.json({
+      success: true,
+      message: "Inicio de sesión exitoso",
+      redirect: "/perfil"
+    });
+  }
+);
 
 router.get("/perfil", isLoggedIn, (req, res) => {
   res.render("perfil", { user: req.user });

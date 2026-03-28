@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Formulario</title>
-
-    <!-- CSS CORREGIDO -->
     <link rel="stylesheet" href="./public/styles/estilos.css" />
-
-    <!-- JS CORREGIDO -->
     <script src="./public/js/config.js" defer></script>
     <script src="./public/js/functions.js" defer></script>
   </head>
@@ -35,22 +31,10 @@
 
       <section class="seccion">
         <hgroup>
-          <h1 class="title">Formulario de registro</h1>
+          <h1 class="title">Formulario inicio de sesion</h1>
 
-          <form id="formulario" method="post" action="/registro">
+          <form id="formulario-sesion" method="post" action="/login">
             <ul>
-              <li>
-                <label for="name_user">Nombre:</label>
-                <input
-                  type="text"
-                  name="name"
-                  class="input"
-                  required
-                  placeholder="name"
-                  autofocus
-                />
-              </li>
-
               <li>
                 <label for="mail">Correo electrónico:</label>
                 <input
@@ -78,23 +62,6 @@
                   />
 
                   <span id="togglePassword" class="eye-icon"></span>
-                </div>
-                <div class="input-group">
-                  <label for="modality">Modalidad</label>
-                  <select
-                    id="modality"
-                    name="modality"
-                    class="select-modalidad"
-                    required
-                  >
-                    <option value="" disabled selected>
-                      Selecciona una modalidad
-                    </option>
-                    <option value="XC">XC</option>
-                    <option value="Enduro">Enduro</option>
-                    <option value="Downhill">Downhill</option>
-                    <option value="Ruta">Ruta</option>
-                  </select>
                 </div>
               </li>
             </ul>
