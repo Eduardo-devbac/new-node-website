@@ -1,5 +1,6 @@
 const form = document.getElementById("formulario");
-const button = document.getElementById("boton");
+const button = document.getElementById("boton-general");
+const buttongeneral = document.getElementById("busqueda-tienda");
 const botones = document.querySelectorAll(".btn_blog");
 const listsale = document.querySelectorAll(".btn_sale");
 const listacompra = document.getElementById("lista-compra");
@@ -13,10 +14,16 @@ const formlog = document.getElementById("formulario-sesion");
 
 if (button) {
   button.addEventListener("click", function () {
-    const busqueda = document.getElementById("busqueda").value;
+    const busqueda = document.getElementById("busqueda-general").value;
     alert("Busqueda: " + busqueda);
   });
 }
+if (buttongeneral) {
+  buttongeneral.addEventListener("click", function () {
+    const busqueda = document.getElementById("buscador-tienda").value;
+    alert("Busqueda: " + busqueda);
+  });
+} 
 
 if (form) {
   form.addEventListener("submit", async (e) => {

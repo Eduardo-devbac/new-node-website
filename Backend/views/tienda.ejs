@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda de Ciclismo</title>
-    <link rel="stylesheet" href="./public/styles/estilos.css" />
-    <script src="./public/js/functions.js" defer></script>
+    <link rel="stylesheet" href="/public/styles/estilos.css" />
+    <script src="/public/js/functions.js" defer></script>
   </head>
 
   <body>
@@ -15,12 +15,16 @@
       </nav>
     </header>
 
-    <main>
+  <main>
+    <div class="tienda-contenedor">
       <section class="title">
         <h1>Tienda de Ciclismo</h1>
         <p>Los mejores productos para tu bicicleta</p>
       </section>
-
+        <section class="buscador-tienda">
+  <input type="text" id="buscador-tienda" placeholder="Buscar productos...">
+  <button id="busqueda-tienda" type="button">buscar</button>
+</section>
       <section>
         <h2 style="margin-bottom: 16px">Categorías</h2>
         <div class="cards">
@@ -95,24 +99,12 @@
         </div>
       </section>
 
-      <section class="seccion" style="max-width: 600px">
-        <h2 class="title">¿Buscas algo específico?</h2>
-
-        <input
-          type="text"
-          class="input"
-          id="busqueda"
-          placeholder="Buscar productos..."
-        />
-
-        <button class="btn" id="boton" style="margin-top: 12px">Buscar</button>
-      </section>
-
-      <section class="seccion">
-        <h2 class="title">Lista de compra</h2>
-        <ul id="lista-compra" style="list-style: none; padding: 0"></ul>
-        <p id="total">Total:</p>
-      </section>
+<section class="lista-compra">
+  <h2 class="title">Lista de compra</h2>
+  <ul id="lista-compra" style="list-style: none; padding: 0"></ul>
+  <p id="total">Total:</p>
+</section>
+      </div>
     </main>
 
     <footer class="pie">

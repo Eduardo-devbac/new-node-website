@@ -48,13 +48,20 @@ nav ul li a:hover {
   background-color: #f0f0f0;
 }
 
+.contenedor {
+  max-width: 1700px;   
+  width: 100%;
+  margin: 0 auto;     
+  padding: 0 20px;     
+}
+
 /* HERO / BANNER */
 .imag-prin {
   background-image: url("../img/pexels-radik-2707-170977881-12116131.jpg");
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 320px;
+  height: 360px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,7 +69,9 @@ nav ul li a:hover {
   text-align: center;
   color: white;
   padding: 20px;
-  border-radius: 0 0 20px 20px;
+   border-radius: 20px; 
+  margin-bottom: 50px; 
+  margin-top: 40px;
 }
 
 .imag-prin h1 {
@@ -80,19 +89,59 @@ nav ul li a:hover {
 /* MAIN */
 main {
   flex: 1;
-  padding: 50px 20px;
-  max-width: 900px;
+  padding: 40px 20px;
+  max-width: 1500px;
   margin: 0 auto;
   width: 100%;
+}
+
+.tienda-contenedor {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.buscador-tienda {
+  max-width: 450px;        
+  margin: 20px auto 40px;  
+  display: flex;
+  gap: 10px;
+}
+
+.buscador-tienda input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.buscador-tienda button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #0077cc;
+  cursor: pointer;
+}
+
+.lista-compra {
+  max-width: 5000px;
+  margin: 0 auto 60px auto;
+  padding: 24px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
 }
 
 /* CARDS */
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-  margin-bottom: 50px;
-}
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+   }
 
 .card {
   background-color: white;
@@ -109,23 +158,23 @@ main {
 
 .cards img {
   width: 100%;
-  height: 200px;
+  height: 240px;
   object-fit: cover;
 }
 
 .card-body {
-  padding: 18px;
+  padding: 22px;
 }
 
 .card-body h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   margin-bottom: 10px;
   color: #111;
   font-weight: 600;
 }
 
 .card-body p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
 }
 
@@ -133,9 +182,11 @@ main {
 .seccion {
   background-color: white;
   border-radius: 14px;
-  padding: 40px;
-  margin: 0 auto 60px auto;
+  padding: 32px;
+  margin: 60px auto;
   box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  max-width: 1600px; 
+  width: 100%;
 }
 
 .title {
@@ -217,11 +268,11 @@ textarea {
 }
 
 .eye-icon {
-  background-image: url('../img/eye-close-line.png');
+  background-image: url("../img/eye-close-line.png");
 }
 
 .eye-icon.open {
-  background-image: url('../img/eye-line.png');
+  background-image: url("../img/eye-line.png");
 }
 
 /* RESPONSIVE */
@@ -239,37 +290,26 @@ textarea {
 
   .cards {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .imag-prin {
-    height: 240px;
-  }
-
-  .imag-prin h1 {
-    font-size: 2rem;
+    height: 260px;
+    margin-bottom: 40px;
   }
 
   .seccion {
-    padding: 28px;
+    padding: 24px;
+    margin: 40px auto;
   }
 }
 
 @media (max-width: 480px) {
   .imag-prin {
     height: 200px;
-    padding: 10px;
-  }
-
-  .imag-prin h1 {
-    font-size: 1.7rem;
   }
 
   .seccion {
-    padding: 22px;
-    margin: 20px 0;
-  }
-
-  main {
-    padding: 20px 10px;
+    padding: 20px;
   }
 }
