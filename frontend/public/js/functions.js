@@ -11,6 +11,7 @@ const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
 const modalidadSelect = document.getElementById("modalidad");
 const formlog = document.getElementById("formulario-sesion");
+const btndelete = document.getElementById("delete-user");
 
 if (button) {
   button.addEventListener("click", function () {
@@ -168,6 +169,24 @@ if (togglePassword) {
   });
 }
 
+if (btndelete){
+  document.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("delete-user")) {
+    const id = e.target.dataset.id;
+
+    console.log("boton presionado")
+
+    const res = await fetch(`/admin/delete/${id}`, {
+      method: "DELETE"
+    });
+
+
+    if (res.ok) {
+      location.reload();
+    }
+  }
+});
+}
 
 agregarProducto();
 totalCompra();

@@ -59,14 +59,11 @@ website.use((req, res, next) => {
   next();
 });
 
+website.use("/static", express.static(path.join(__dirname, "../../frontend/public")));
+
 // ROUTES
-website.use(home); 
+website.use(home);
 website.use(users);
-
-
-// Servir HTML estático (index.html, blog.html, etc.)
-website.use(express.static(path.join(__dirname, "../../frontend")));
-
 
 // START SERVER
 const port = website.get("port");

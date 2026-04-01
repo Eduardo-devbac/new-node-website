@@ -2,6 +2,7 @@ import { Router } from "express";
 import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 import passport from "passport";
+import { adminDashboard } from "../controllers/admin.controler.js";
 
 
 
@@ -9,12 +10,25 @@ const router = Router();
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
-  return res.redirect("/formulario.html");
+  return res.redirect("/formulario");
+}
+
+function isAdmin(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+
+  if (req.user.rol === "admin") {
+    return next();
+  }
+
+  return res.redirect("/")
 }
 
 router.post("/registro", async (req, res) => {
   try {
     const { name, mail, password, modality } = req.body;
+    console.log(req.body)
 
     if (!name || !mail || !password || !modality) {
       return res.json({
@@ -98,7 +112,7 @@ router.get("/login", (req, res) => {
   res.render("formulario-sesion")
 });
 
-router.get("/logout", (req, res) => {
+router.get("/logout", isLoggedIn, (req, res) => {
   req.logout(() => {
     req.session.destroy(() => {
       res.json({
@@ -112,6 +126,15 @@ router.get("/logout", (req, res) => {
 router.get("/registro", (req, res) => {
   res.render("formulario")
 })
+
+router.get("/admin", isAdmin, adminDashboard);
+
+router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
+  const id = req.params.id;
+  await pool.query("DELETE FROM users WHERE id_users = ?", [id]);
+
+  res.json({ success: true });
+});
 
 
 export default router;
