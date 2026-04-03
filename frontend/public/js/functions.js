@@ -23,7 +23,6 @@ if (button) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const adminMenu = document.getElementById("adminMenu");
- console.log("click en select");
 
   if (adminMenu) {
     adminMenu.addEventListener("change", function () {
