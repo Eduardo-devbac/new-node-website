@@ -176,6 +176,8 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+/* router.post("/blog") */
+
 router.get("/perfil", isLoggedIn, (req, res) => {
   res.render("perfil", { user: req.user });
 });
