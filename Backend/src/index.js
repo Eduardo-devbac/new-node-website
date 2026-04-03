@@ -11,6 +11,7 @@ import cors from "cors";
 import session from "express-session";
 import mysqlSession from "express-mysql-session";
 import pool from "./db/database.js";
+import helmet from 'helmet'
 
 dotenv.config();
 
@@ -58,6 +59,7 @@ website.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
 });
+website.use(helmet());
 
 website.use("/static", express.static(path.join(__dirname, "../../frontend/public")));
 
