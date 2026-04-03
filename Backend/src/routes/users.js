@@ -9,7 +9,7 @@ const router = Router();
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
-  return res.redirect("/formulario");
+  return res.json({ redirect: "/registro" });
 }
 
 function isAdmin(req, res, next) {
@@ -37,7 +37,7 @@ router.post("/registro", async (req, res) => {
       });
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.json({
         success: false,
@@ -176,7 +176,41 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-/* router.post("/blog") */
+router.post("/comentario", isLoggedIn, async (req, res) => {
+  try {
+    const { comentario } = req.body;
+
+    if (!comentario || comentario.trim() === "") {
+      return res.json({
+        success: false,
+        message: "El comentario no puede estar vacío"
+      });
+    }
+
+    const newcoment = {
+      contenido: comentario,
+      id_usuario: req.user.id_users
+    };
+
+    const [result] = await pool.query(
+      "INSERT INTO coments SET ?",
+      [newcoment]
+    );
+
+    return res.json({
+      success: true,
+      message: "Comentario guardado correctamente",
+      id: result.insertId
+    });
+
+  } catch (error) {
+    console.error("Error al insertar comentario:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error en el servidor"
+    });
+  }
+});
 
 router.get("/perfil", isLoggedIn, (req, res) => {
   res.render("perfil", { user: req.user });

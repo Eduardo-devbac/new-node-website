@@ -15,13 +15,22 @@
       <li><a href="/perfil">perfil</a></li>
     <% } %>
 
-     <% if (user && user.rol === "admin") { %>
-      <li><a href="/admin">panel</a></li>
+    <% if (user && user.rol === "admin") { %>
+      <li>
+        <select id="adminMenu">
+          <option value="" disabled selected>Panel admin</option>
+          <option value="/admin-users">Usuarios</option>
+          <option value="/admin-compras">Compras</option>
+          <option value="/admin-comentarios">Comentarios</option>
+        </select>
+      </li>
     <% } %>
-    
-     <div class="buscador">
-    <input type="text" id="busqueda-general" placeholder="Buscar..." />
-    <button id="boton-general">Buscar</button>
-  </div>
+
+    <li>
+      <div class="buscador">
+        <input type="text" id="busqueda-general" placeholder="Buscar..." />
+        <button id="boton-general">Buscar</button>
+      </div>
+    </li>
   </ul>
 </nav>
