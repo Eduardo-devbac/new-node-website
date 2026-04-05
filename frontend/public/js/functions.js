@@ -13,6 +13,7 @@ const modalidadSelect = document.getElementById("modalidad");
 const formlog = document.getElementById("formulario-sesion");
 const btndelete = document.getElementById("delete-user");
 const adminMenu = document.getElementById("adminMenu");
+const btndeletcoment = document.getElementById("delete-coment")
 
 if (button) {
   button.addEventListener("click", function () {
@@ -254,5 +255,22 @@ if (btndelete){
 });
 }
 
+if (btndeletcoment){
+  document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("delete-coment")) {
+      const id = e.target.dataset.id;
+
+      console.log("boton presionado");
+
+      const res = await fetch(`/admin/comentarios/delete/${id}`, {
+        method: "DELETE"
+      });
+
+      if (res.ok) {
+        location.reload();
+      }
+    }
+  });
+}
 agregarProducto();
 totalCompra();

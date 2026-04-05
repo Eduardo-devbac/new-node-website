@@ -46,8 +46,17 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const [rows] = await pool.query("SELECT * FROM users WHERE id_users = ?", [id]);
-  done(null, rows[0]);
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE id_users = ?", [id]);
+
+    if (rows.length === 0) {
+      return done(null, false); // usuario ya no existe
+    }
+
+    return done(null, rows[0]);
+  } catch (err) {
+    return done(err);
+  }
 });
 
 export default passport;

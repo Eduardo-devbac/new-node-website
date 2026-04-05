@@ -27,16 +27,20 @@
                         <th>Contenido</th>
                         <th>Id del usuario</th>
                         <th>Fecha de creacion</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                      <% if (comentarios) { %>
                         <% for (let i = 0; i < comentarios.length; i++) { %>
                             <tr>
-                                <th><%= comentarios[i].id_coment %></th>
-                                <th><%= comentarios[i].contenido %></th>
-                                <th><%= comentarios[i].id_usuario %></th>
-                                <th><%= comentarios[i].fecha %></th>
+                                <td><%= comentarios[i].id_coment %></td>
+                                <td><%= comentarios[i].contenido %></td>
+                                <td><%= comentarios[i].id_usuario %></td>
+                                <td><%= comentarios[i].fecha %></td>
+                                <td><button class="delete-coment btn-action btn-danger" data-id="<%= comentarios[i].id_coment %>" id="delete-coment">
+      Eliminar
+    </button></td>
                             </tr>
                              <% } %>
                               <% } %>

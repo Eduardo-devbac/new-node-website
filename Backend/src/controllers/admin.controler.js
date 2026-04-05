@@ -1,6 +1,6 @@
 import pool from "../db/database.js";
 
-export async function adminDashboard(req, res) {
+export async function adminUsers(req, res) {
   try {
     
     const [usuarios] = await pool.query(

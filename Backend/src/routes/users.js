@@ -2,7 +2,7 @@ import { Router } from "express";
 import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 import passport from "passport";
-import { adminDashboard } from "../controllers/admin.controler.js";
+import { adminUsers } from "../controllers/admin.controler.js";
 import { adminComents } from "../controllers/admin.controler.js";
 
 const router = Router();
@@ -236,13 +236,25 @@ router.get("/registro", (req, res) => {
   res.render("formulario");
 });
 
-router.get("/admin-users", isAdmin, adminDashboard);
+router.get("/admin-users", isAdmin, adminUsers);
 router.get("/admin-coments", isAdmin, adminComents);
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;
   await pool.query("DELETE FROM users WHERE id_users = ?", [id]);
   res.json({ success: true });
+});
+
+router.delete("/admin/comentarios/delete/:id", isAdmin, async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    await pool.query("DELETE FROM coments WHERE id_coment = ?", [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error eliminando comentario:", error);
+    res.json({ success: false });
+  }
 });
 
 export default router;
