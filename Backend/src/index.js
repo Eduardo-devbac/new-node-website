@@ -28,6 +28,7 @@ const sessionStore = new MySQLStore({
 website.set("port", process.env.PORT || 3000);
 website.set("view engine", "ejs");
 website.set("views", path.join(__dirname, "../views"));
+website.set("trust proxy", 1);
  
 
 // MIDDLEWARES
@@ -49,7 +50,8 @@ website.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 día
       httpOnly: true,
-      secure: true, // en producción con HTTPS → true
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: "lax"
     },
   }),
 )
