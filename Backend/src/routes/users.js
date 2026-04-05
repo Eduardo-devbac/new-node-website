@@ -3,6 +3,7 @@ import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 import passport from "passport";
 import { adminDashboard } from "../controllers/admin.controler.js";
+import { adminComents } from "../controllers/admin.controler.js";
 
 const router = Router();
 
@@ -235,7 +236,8 @@ router.get("/registro", (req, res) => {
   res.render("formulario");
 });
 
-router.get("/admin", isAdmin, adminDashboard);
+router.get("/admin-users", isAdmin, adminDashboard);
+router.get("/admin-coments", isAdmin, adminComents);
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;

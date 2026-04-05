@@ -1,7 +1,7 @@
 const form = document.getElementById("formulario");
 const button = document.getElementById("boton-general");
 const buttongeneral = document.getElementById("busqueda-tienda");
-const botoncoment = document.getElementById("btn-coment")
+const botoncoment = document.querySelectorAll(".btn-coment")
 const listsale = document.querySelectorAll(".btn_sale");
 const listacompra = document.getElementById("lista-compra");
 const cerrarsesion = document.getElementById("cerrar_sesion");
@@ -126,19 +126,26 @@ if (formlog) {
   });
 }
 
-if (botoncoment){  
-  botoncoment.addEventListener("click", async function () {
-    const textarea = botoncoment.parentElement.querySelector("textarea");
+botoncoment.forEach((coment) => {
+  coment.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const parent = coment.closest(".comentario-box");
+    const textarea = parent.querySelector(".comentario");
+    const responseBox = parent.querySelector(".respuesta-formualrio");
     const datacoment = {
       comentario: textarea.value
     }
+
      const texto = textarea.value.trim();
 
     if (texto === "") {
-      alert("El comentario no puede estar vacío");
-      return; 
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h4>El comentario no puede estar vacío</h4>
+        </div>
+      `;
+      return;
     }
-    
     const response = await fetch(`/comentario`, {
       method: "POST",
       headers: {
@@ -170,9 +177,11 @@ if (botoncoment){
         </div>
       `;
     }
-  });
 
-  }
+    
+  })
+})
+
 
 
 if (cerrarsesion) {
