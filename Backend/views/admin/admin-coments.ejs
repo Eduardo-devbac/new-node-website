@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/estilos.css" />
+    <script src="/static/js/config.js" defer></script>
+    <script src="/static/js/functions.js" defer></script>
+    <title>Panel de administrador</title>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="menu">
+            <%- include("../partials/navbar") %>
+        </nav>
+    </header>
+
+    <main class="admin-container">
+        <h1 class="admin-title">Panel de administración</h1>
+        <h2 class="admin-subtitle">Bienvenido, <%= user.name %></h2>
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Id del comentario</th>
+                        <th>Contenido</th>
+                        <th>Id del usuario</th>
+                        <th>Fecha de creacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <% if (comentarios) { %>
+                        <% for (let i = 0; i < comentarios.length; i++) { %>
+                            <tr>
+                                <th><%= comentarios[i].id_coment %></th>
+                                <th><%= comentarios[i].contenido %></th>
+                                <th><%= comentarios[i].id_usuario %></th>
+                                <th><%= comentarios[i].fecha %></th>
+                            </tr>
+                             <% } %>
+                              <% } %>
+ 
+</tbody>
+            </table>
+
+
+        </div>
+    </main>
+
+</body>
+</html>

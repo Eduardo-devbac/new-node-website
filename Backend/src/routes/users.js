@@ -3,13 +3,14 @@ import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 import passport from "passport";
 import { adminDashboard } from "../controllers/admin.controler.js";
+import { adminComents } from "../controllers/admin.controler.js";
 
 const router = Router();
 
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
-  return res.redirect("/formulario");
+  return res.json({ redirect: "/registro" });
 }
 
 function isAdmin(req, res, next) {
@@ -37,7 +38,7 @@ router.post("/registro", async (req, res) => {
       });
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.json({
         success: false,
@@ -176,6 +177,42 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+router.post("/comentario", isLoggedIn, async (req, res) => {
+  try {
+    const { comentario } = req.body;
+
+    if (!comentario || comentario.trim() === "") {
+      return res.json({
+        success: false,
+        message: "El comentario no puede estar vacío"
+      });
+    }
+
+    const newcoment = {
+      contenido: comentario,
+      id_usuario: req.user.id_users
+    };
+
+    const [result] = await pool.query(
+      "INSERT INTO coments SET ?",
+      [newcoment]
+    );
+
+    return res.json({
+      success: true,
+      message: "Comentario guardado correctamente",
+      id: result.insertId
+    });
+
+  } catch (error) {
+    console.error("Error al insertar comentario:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error en el servidor"
+    });
+  }
+});
+
 router.get("/perfil", isLoggedIn, (req, res) => {
   res.render("perfil", { user: req.user });
 });
@@ -199,7 +236,8 @@ router.get("/registro", (req, res) => {
   res.render("formulario");
 });
 
-router.get("/admin", isAdmin, adminDashboard);
+router.get("/admin-users", isAdmin, adminDashboard);
+router.get("/admin-coments", isAdmin, adminComents);
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;
