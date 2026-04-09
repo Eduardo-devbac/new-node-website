@@ -3,7 +3,7 @@ import pool from "../db/database.js";
 export async function userProfile(req, res) {
   try {
 
-    res.render("users/perfil", {
+    res.render("client/perfil", {
         
     });
 
@@ -21,7 +21,7 @@ export async function userComents(req, res) {
          [req.user.id_users],
     )
 
-    res.render("users/comentarios", {
+    res.render("client/comentarios", {
             user: req.user,
             comentarios
         })
