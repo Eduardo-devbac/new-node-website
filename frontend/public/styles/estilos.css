@@ -396,3 +396,35 @@ textarea {
 .btn-danger:hover {
     background: #b52b27;
 }
+
+.comentarios-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.comentario-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.comentario-fecha {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.comentario-texto {
+  font-size: 1rem;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+.no-comentarios {
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+}

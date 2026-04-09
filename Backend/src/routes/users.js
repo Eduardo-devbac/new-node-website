@@ -5,6 +5,7 @@ import passport from "passport";
 import { adminUsers } from "../controllers/admin.controller.js";
 import { adminComents } from "../controllers/admin.controller.js";
 import { userProfile } from "../controllers/users.controller.js";
+import { userComents } from "../controllers/users.controller.js";
 
 const router = Router();
 
@@ -215,6 +216,7 @@ router.post("/comentario", isLoggedIn, async (req, res) => {
 });
 
 router.get("/perfil", isLoggedIn, userProfile)
+router.get("/comentarios", isLoggedIn, userComents)
 
 router.get("/login", (req, res) => {
   res.render("formulario-sesion");
