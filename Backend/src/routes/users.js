@@ -2,8 +2,9 @@ import { Router } from "express";
 import pool from "../db/database.js";
 import healpers from "../lib/helpers.js";
 import passport from "passport";
-import { adminUsers } from "../controllers/admin.controler.js";
-import { adminComents } from "../controllers/admin.controler.js";
+import { adminUsers } from "../controllers/admin.controller.js";
+import { adminComents } from "../controllers/admin.controller.js";
+import { userProfile } from "../controllers/users.controller.js";
 
 const router = Router();
 
@@ -194,7 +195,7 @@ router.post("/comentario", isLoggedIn, async (req, res) => {
     };
 
     const [result] = await pool.query(
-      "INSERT INTO coments SET ?",
+      "INSERT INTO comentarios SET ?",
       [newcoment]
     );
 
@@ -213,9 +214,7 @@ router.post("/comentario", isLoggedIn, async (req, res) => {
   }
 });
 
-router.get("/perfil", isLoggedIn, (req, res) => {
-  res.render("perfil", { user: req.user });
-});
+router.get("/perfil", isLoggedIn, userProfile)
 
 router.get("/login", (req, res) => {
   res.render("formulario-sesion");
@@ -249,7 +248,7 @@ router.delete("/admin/comentarios/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;
 
   try {
-    await pool.query("DELETE FROM coments WHERE id_coment = ?", [id]);
+    await pool.query("DELETE FROM comentarios WHERE id_coment = ?", [id]);
     res.json({ success: true });
   } catch (error) {
     console.error("Error eliminando comentario:", error);

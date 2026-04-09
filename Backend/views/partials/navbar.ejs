@@ -12,7 +12,12 @@
       <li><a href="/registro">registro</a></li>
       <li><a href="/login">iniciar sesión</a></li>
     <% } else { %>
-      <li><a href="/perfil">perfil</a></li>
+      <li>
+        <select id="userMenu">
+          <option value="" disabled selected>Panel de usuario</option>
+          <option value="/perfil">perfil</option>
+        </select>
+      </li>
     <% } %>
 
     <% if (user && user.rol === "admin") { %>

@@ -21,7 +21,7 @@ export async function adminUsers(req, res) {
 export async function adminComents (req, res) {
   try {
     const [comentarios] = await pool.query(
-      "SELECT * FROM coments"
+      "SELECT * FROM comentarios"
     );
 
     res.render("admin/admin-coments", {

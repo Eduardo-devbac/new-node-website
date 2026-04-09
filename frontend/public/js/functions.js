@@ -35,6 +35,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const adminMenu = document.getElementById("userMenu");
+
+  if (adminMenu) {
+    adminMenu.addEventListener("change", function () {
+      const url = this.value;
+      if (url) {
+        window.location.href = url;
+      }
+    });
+  }
+});
+
 if (buttongeneral) {
   buttongeneral.addEventListener("click", function () {
     const busqueda = document.getElementById("buscador-tienda").value;
