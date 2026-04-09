@@ -237,8 +237,8 @@ router.get("/registro", (req, res) => {
   res.render("formulario");
 });
 
-router.get("/admin-users", isAdmin, adminUsers);
-router.get("/admin-coments", isAdmin, adminComents);
+router.get("/admin-users", isLoggedIn, isAdmin, adminUsers);
+router.get("/admin-coments", isLoggedIn, isAdmin, adminComents);
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;
