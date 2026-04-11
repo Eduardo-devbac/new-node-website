@@ -9,28 +9,30 @@
     <li><a href="/tienda">tienda</a></li>
 
     <% if (!user) { %>
-      <li><a href="/registro">registro</a></li>
-      <li><a href="/login">iniciar sesión</a></li>
-    <% } else { %>
-      <li>
-        <select id="userMenu">
-          <option value="" disabled selected>Panel de usuario</option>
-          <option value="/perfil">perfil</option>
-          <option value="/comentarios">comentarios</option>
-        </select>
-      </li>
-    <% } %>
+  <li><a href="/registro">registro</a></li>
+  <li><a href="/login">iniciar sesión</a></li>
 
-    <% if (user && user.rol === "admin") { %>
-      <li>
-        <select id="adminMenu">
-          <option value="" disabled selected>Panel admin</option>
-          <option value="/admin-users">Usuarios</option>
-          <option value="/admin-coments">Comentarios</option>
-          <option value="/admin-products">Productos</option>
-        </select>
-      </li>
-    <% } %>
+<% } else if (user.rol === "admin") { %>
+  <li>
+    <select id="adminMenu">
+      <option value="" disabled selected>Panel admin</option>
+      <option value="/perfil">Perfil</option>
+      <option value="/admin-users">Usuarios</option>
+      <option value="/admin-coments">Comentarios</option>
+      <option value="/admin-products">Productos</option>
+    </select>
+  </li>
+
+<% } else { %>
+  <li>
+    <select id="userMenu">
+      <option value="" disabled selected>Panel de usuario</option>
+      <option value="/perfil">perfil</option>
+      <option value="/comentarios">comentarios</option>
+    </select>
+  </li>
+
+<% } %>
 
     <li>
       <div class="buscador">
