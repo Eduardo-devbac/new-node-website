@@ -6,6 +6,7 @@ import { adminUsers } from "../controllers/admin.controller.js";
 import { adminComents } from "../controllers/admin.controller.js";
 import { userProfile } from "../controllers/users.controller.js";
 import { userComents } from "../controllers/users.controller.js";
+import { adminProducts } from "../controllers/admin.controller.js";
 
 const router = Router();
 
@@ -239,6 +240,7 @@ router.get("/registro", (req, res) => {
 
 router.get("/admin-users", isLoggedIn, isAdmin, adminUsers);
 router.get("/admin-coments", isLoggedIn, isAdmin, adminComents);
+router.get("/admin-products", isLoggedIn, isAdmin, adminProducts);
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;

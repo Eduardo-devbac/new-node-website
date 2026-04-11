@@ -1,4 +1,5 @@
  import { Router } from "express";
+ import { Products } from "../controllers/admin.controller.js";
 
 const router = Router();
  
@@ -30,9 +31,7 @@ router.get("/blog", (req, res) => {
   res.render("blog")
 })
 
-router.get("/tienda", (req, res) => {
-  res.render("tienda")
-})
+router.get("/tienda", Products)
 export default router;
 
   

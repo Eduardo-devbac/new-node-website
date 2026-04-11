@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/estilos.css" />
+    <script src="/static/js/config.js" defer></script>
+    <script src="/static/js/functions.js" defer></script>
+    <title>Panel de administrador</title>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="menu">
+            <%- include("../partials/navbar") %>
+        </nav>
+    </header>
+
+    <main class="admin-container">
+        <h1 class="admin-title">Panel de administración</h1>
+        <h2 class="admin-subtitle">Bienvenido, <%= user.name %></h2>
+
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Existencia</th>
+                        <th>Fecha de creacion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+  <% if (productos) { %>
+
+    <% for (let i = 0; i < productos.length; i++) { %>
+      <tr>
+        <td><%= productos[i].id_product %></td>
+        <td><%= productos[i].nombre %></td>
+        <td><%= productos[i].description %></td>
+        <td><%= productos[i].stock %></td>
+        <td><%= productos[i].creation_date %></td>
+        <td>
+             <button class="btn-action btn-danger delete-user" data-id="<%= %>" id="delete-user">Eliminar</button>
+        </td>
+      </tr>
+    <% } %>
+
+  <% } else { %>
+      <tr>
+        <td colspan="5" style="text-align:center; padding: 20px;">
+          No hay usuarios registrados
+        </td>
+      </tr>
+  <% } %>
+</tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

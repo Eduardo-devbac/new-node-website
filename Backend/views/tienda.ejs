@@ -25,79 +25,36 @@
   <input type="text" id="buscador-tienda" placeholder="Buscar productos...">
   <button id="busqueda-tienda" type="button">buscar</button>
 </section>
-      <section>
-        <h2 style="margin-bottom: 16px">Categorías</h2>
-        <div class="cards">
-          <div class="card">
-            <div class="card-body">
-              <h3>Bicicletas</h3>
-              <p>Ruta, montaña, urbana y más</p>
-            </div>
-          </div>
+ <section>
+  <h2>Productos destacados</h2>
 
-          <div class="card">
-            <div class="card-body">
-              <h3>Cascos</h3>
-              <p>Seguridad y aerodinámica</p>
-            </div>
-          </div>
+  <% if (productos.length === 0) { %>
+    <p class="no-comentarios">Sin productos disponibles.</p>
+  <% } else { %>
 
-          <div class="card">
-            <div class="card-body">
-              <h3>Ropa</h3>
-              <p>Maillots, culotes y más</p>
-            </div>
-          </div>
+    <div class="cards">
+      <% for (let i = 0; i < productos.length; i++) { %>
+        <div class="card">
+          <div class="card-body">
+            <h3><%= productos[i].nombre %></h3>
+            <p><%= productos[i].description %></p>
+            <p class="price">$<%= productos[i].price %></p>
 
-          <div class="card">
-            <div class="card-body">
-              <h3>Accesorios</h3>
-              <p>Todo lo que necesitas</p>
-            </div>
+            <!-- Botón con dataset -->
+            <button 
+              class="btn btn_sale"
+              data-precio="<%= productos[i].price %>"
+              data-nombre="<%= productos[i].nombre %>"
+            >
+              Agregar al carrito
+            </button>
           </div>
         </div>
-      </section>
+      <% } %>
+    </div>
 
-      <section>
-        <h2>Productos destacados</h2>
-        <div class="cards">
-          <div class="card">
-            <div class="card-body">
-              <h3>Bicicleta de Ruta Pro</h3>
-              <p>Cuadro de carbono, grupo Shimano 105</p>
-              <p id="precio">$25,000 MNX</p>
-              <button class="btn btn_sale">Agregar al carrito</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h3>Casco Aerodinámico</h3>
-              <p>Ventilación optimizada, cierre magnético</p>
-              <p id="precio">$1,800 MNX</p>
-              <button class="btn btn_sale">Agregar al carrito</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h3>Maillot Pro Team</h3>
-              <p>Tela transpirable, corte ergonómico</p>
-              <p id="precio">$950 MNX</p>
-              <button class="btn btn_sale">Agregar al carrito</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h3>Zapatillas de Carbono</h3>
-              <p>Suela rígida, cierre BOA</p>
-              <p id="precio">$3,200 MNX</p>
-              <button class="btn btn_sale">Agregar al carrito</button>
-            </div>
-          </div>
-        </div>
-      </section>
+  <% } %>
+</section>
 
 <section class="lista-compra">
   <h2 class="title">Lista de compra</h2>

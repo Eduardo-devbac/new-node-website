@@ -2,18 +2,19 @@ const form = document.getElementById("formulario");
 const button = document.getElementById("boton-general");
 const buttongeneral = document.getElementById("busqueda-tienda");
 const botoncoment = document.querySelectorAll(".btn-coment")
-const listsale = document.querySelectorAll(".btn_sale");
-const listacompra = document.getElementById("lista-compra");
 const cerrarsesion = document.getElementById("cerrar_sesion");
 const responseBox = document.getElementById("respuesta-formualrio");
-var total = 0;
 const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
 const modalidadSelect = document.getElementById("modalidad");
 const formlog = document.getElementById("formulario-sesion");
 const btndelete = document.getElementById("delete-user");
 const adminMenu = document.getElementById("adminMenu");
-const btndeletcoment = document.getElementById("delete-coment")
+const btndeletcoment = document.getElementById("delete-coment");
+const botones = document.querySelectorAll(".btn_sale");
+const lista = document.getElementById("lista-compra");
+const totalTexto = document.getElementById("total");
+let total = 0;
 
 if (button) {
   button.addEventListener("click", function () {
@@ -211,33 +212,22 @@ if (cerrarsesion) {
   });
 }
 
-function agregarProducto() {
-  listsale.forEach(function (sale) {
-    sale.addEventListener("click", function (event) {
-      event.preventDefault();
-      const produc = sale.parentElement.querySelector("h3").textContent;
-      const li = document.createElement("li");
-      li.textContent = produc;
-      li.id = "producto";
-      listacompra.appendChild(li);
-    });
-  });
-}
+botones.forEach(btn => {
+  btn.addEventListener("click", () => {
 
-function totalCompra() {
-  listsale.forEach(function (numero) {
-    numero.addEventListener("click", function (event) {
-      event.preventDefault();
-      const precioTexto =
-        numero.parentElement.querySelector("#precio").textContent;
-      const costo = parseFloat(precioTexto.replace(/[^0-9.-]+/g, ""));
-      total = total + costo;
-      const mostratotal = document.getElementById("total");
-      listacompra.appendChild(mostratotal);
-      mostratotal.textContent = "Total: " + total;
-    });
+    const nombre = btn.dataset.nombre;
+    const precio = parseFloat(btn.dataset.precio);
+
+    // Agregar a la lista
+    const li = document.createElement("li");
+    li.textContent = `${nombre} - $${precio}`;
+    lista.appendChild(li);
+
+    // Sumar al total
+    total =  total + precio;
+    totalTexto.textContent = `Total: $${total}`;
   });
-}
+});
 
 if (togglePassword) {
   togglePassword.addEventListener("click", () => {
@@ -285,5 +275,4 @@ if (btndeletcoment){
     }
   });
 }
-agregarProducto();
-totalCompra();
+
