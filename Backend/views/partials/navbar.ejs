@@ -1,4 +1,13 @@
 <nav class="menu">
+
+  <!-- Botón hamburguesa -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Menú principal -->
   <ul>
     <li><a href="/">historia</a></li>
     <li><a href="/beneficios">beneficios</a></li>
@@ -9,36 +18,37 @@
     <li><a href="/tienda">tienda</a></li>
 
     <% if (!user) { %>
-  <li><a href="/registro">registro</a></li>
-  <li><a href="/login">iniciar sesión</a></li>
+      <li><a href="/registro">registro</a></li>
+      <li><a href="/login">iniciar sesión</a></li>
 
-<% } else if (user.rol === "admin") { %>
-  <li>
-    <select id="adminMenu">
-      <option value="" disabled selected>Panel admin</option>
-      <option value="/perfil">Perfil</option>
-      <option value="/admin-users">Usuarios</option>
-      <option value="/admin-coments">Comentarios</option>
-      <option value="/admin-products">Productos</option>
-    </select>
-  </li>
+    <% } else if (user.rol === "admin") { %>
+      <li>
+        <select id="adminMenu">
+          <option value="" disabled selected>Panel admin</option>
+          <option value="/perfil">Perfil</option>
+          <option value="/admin-users">Usuarios</option>
+          <option value="/admin-coments">Comentarios</option>
+          <option value="/admin-products">Productos</option>
+        </select>
+      </li>
 
-<% } else { %>
-  <li>
-    <select id="userMenu">
-      <option value="" disabled selected>Panel de usuario</option>
-      <option value="/perfil">perfil</option>
-      <option value="/comentarios">comentarios</option>
-    </select>
-  </li>
+    <% } else { %>
+      <li>
+        <select id="userMenu">
+          <option value="" disabled selected>Panel de usuario</option>
+          <option value="/perfil">perfil</option>
+          <option value="/comentarios">comentarios</option>
+        </select>
+      </li>
+    <% } %>
 
-<% } %>
-
+    <!-- Buscador original -->
     <li>
       <div class="buscador">
         <input type="text" id="busqueda-general" placeholder="Buscar..." />
         <button id="boton-general">Buscar</button>
       </div>
     </li>
+
   </ul>
 </nav>

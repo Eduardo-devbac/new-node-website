@@ -15,6 +15,15 @@ const botones = document.querySelectorAll(".btn_sale");
 const lista = document.getElementById("lista-compra");
 const totalTexto = document.getElementById("total");
 let total = 0;
+const hamburger = document.getElementById("hamburger");
+const navList = document.querySelector("nav ul");
+
+if (hamburger && navList) {
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    navList.classList.toggle("show");
+  });
+}
 
 if (button) {
   button.addEventListener("click", function () {

@@ -27,6 +27,13 @@ header {
   border-bottom: 1px solid #e5e5e5;
 }
 
+/* NAV ORIGINAL + FIX */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 nav ul {
   list-style: none;
   display: flex;
@@ -48,11 +55,100 @@ nav ul li a:hover {
   background-color: #f0f0f0;
 }
 
-.contenedor {
-  max-width: 1700px;   
+/* BUSCADOR ORIGINAL */
+.buscador {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buscador input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.buscador button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #0077cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: #333;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+/* Animación */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* RESPONSIVE NAV */
+@media (max-width: 768px) {
+
+  header {
+    padding: 0 15px;
+  }
+
+  .hamburger {
+  display: flex;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    gap: 12px;
+    height: auto;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+ nav ul li {
   width: 100%;
-  margin: 0 auto;     
-  padding: 0 20px;     
+  text-align: left;
+  padding-left: 20px;
+}
+  .buscador {
+  width: 90%;
+  margin-left: 20px;
+  justify-content: flex-start;
+}
 }
 
 /* HERO / BANNER */
@@ -69,8 +165,8 @@ nav ul li a:hover {
   text-align: center;
   color: white;
   padding: 20px;
-   border-radius: 20px; 
-  margin-bottom: 50px; 
+  border-radius: 20px;
+  margin-bottom: 50px;
   margin-top: 40px;
 }
 
@@ -103,8 +199,8 @@ main {
 }
 
 .buscador-tienda {
-  max-width: 450px;        
-  margin: 20px auto 40px;  
+  max-width: 450px;
+  margin: 20px auto 40px;
   display: flex;
   gap: 10px;
 }
@@ -141,7 +237,7 @@ main {
   gap: 32px;
   margin-top: 40px;
   margin-bottom: 60px;
-   }
+}
 
 .card {
   background-color: white;
@@ -185,7 +281,7 @@ main {
   padding: 32px;
   margin: 60px auto;
   box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-  max-width: 1600px; 
+  max-width: 1600px;
   width: 100%;
 }
 
@@ -275,53 +371,48 @@ textarea {
   background-image: url("../img/eye-line.png");
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
-  header {
-    padding: 0 15px;
+
+  /* 1. Hamburguesa fija arriba a la derecha */
+  .hamburger {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    margin: 0;
   }
 
+  /* 2. El menú baja para no tapar la hamburguesa */
   nav ul {
-    flex-direction: column;
-    height: auto;
-    padding: 15px 0;
-    gap: 12px;
+    margin-top: 50px;
   }
 
-  .cards {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  /* 3. Textos alineados a la izquierda (pero no el menú completo) */
+  nav ul li {
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
   }
 
-  .imag-prin {
-    height: 260px;
-    margin-bottom: 40px;
+  /* 4. Buscador alineado a la izquierda */
+  .buscador {
+    width: 90%;
+    margin-left: 20px;
+    justify-content: flex-start;
   }
 
-  .seccion {
-    padding: 24px;
-    margin: 40px auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .imag-prin {
-    height: 200px;
-  }
-
-  .seccion {
-    padding: 20px;
+  /* 5. El nav deja de centrar todo */
+  nav {
+    justify-content: flex-start;
   }
 }
 
-/* Contenedor general */
+/* ADMIN */
 .admin-container {
     max-width: 1100px;
     margin: 40px auto;
     padding: 20px;
 }
 
-/* Títulos */
 .admin-title {
     text-align: center;
     font-size: 2rem;
@@ -335,7 +426,6 @@ textarea {
     color: #555;
 }
 
-/* Tabla */
 .table-container {
     overflow-x: auto;
 }
@@ -365,7 +455,6 @@ textarea {
     background: #f5faff;
 }
 
-/* Mensaje sin datos */
 .no-data {
     text-align: center;
     padding: 20px;
@@ -373,7 +462,6 @@ textarea {
     color: #666;
 }
 
-/* Botones */
 .btn-action {
     padding: 6px 12px;
     border: none;
