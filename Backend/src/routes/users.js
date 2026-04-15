@@ -216,6 +216,59 @@ router.post("/comentario", isLoggedIn, async (req, res) => {
   }
 });
 
+router.post("/compra", isLoggedIn, async (req, res) => {
+  try {
+    const { list } = req.body;
+
+    if (!list || !Array.isArray(list) || list.length === 0) {
+      return res.json({ success: false, message: "Carrito vacío o inválido" });
+    }
+
+    for (const item of list) {
+      if (!item.id || !item.cantidad || item.cantidad <= 0) {
+        return res.json({ success: false, message: "Datos de producto inválidos" });
+      }
+    }
+
+    for (const item of list) {
+      const [rows] = await pool.query(
+        "SELECT stock FROM products WHERE id_product = ?",
+        [item.id]
+      );
+
+      if (rows.length === 0) {
+        return res.json({ success: false, message: `Producto ${item.id} no existe` });
+      }
+
+      if (rows[0].stock < item.cantidad) {
+        return res.json({ success: false, message: `Producto no disponible ${item.id}` });
+      }
+    }
+
+    for (const item of list) {
+      await pool.query(
+        "UPDATE products SET stock = stock - ? WHERE id_product = ?",
+        [item.cantidad, item.id]
+      );
+    }
+
+    return res.json({
+      success: true,
+      message: "Compra realizada correctamente"
+    });
+
+  } catch (error) {
+    console.error("Error al insertar la compra:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error en el servidor"
+    });
+  }
+});
+
+
+
+
 router.get("/perfil", isLoggedIn, userProfile)
 router.get("/comentarios", isLoggedIn, userComents)
 

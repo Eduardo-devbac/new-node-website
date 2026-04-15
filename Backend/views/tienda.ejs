@@ -39,10 +39,9 @@
             <h3><%= productos[i].nombre %></h3>
             <p><%= productos[i].description %></p>
             <p class="price">$<%= productos[i].price %></p>
-
-            <!-- Botón con dataset -->
             <button 
               class="btn btn_sale"
+              data-id="<%= productos[i].id_product %>"
               data-precio="<%= productos[i].price %>"
               data-nombre="<%= productos[i].nombre %>"
             >
@@ -60,6 +59,13 @@
   <h2 class="title">Lista de compra</h2>
   <ul id="lista-compra" style="list-style: none; padding: 0"></ul>
   <p id="total">Total:</p>
+  <button class="btn" id="btn-pay">
+              Pagar
+            </button>
+
+            <div id="respuesta-formualrio">
+
+            </div>
 </section>
       </div>
     </main>

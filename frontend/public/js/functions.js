@@ -12,11 +12,14 @@ const btndelete = document.getElementById("delete-user");
 const adminMenu = document.getElementById("adminMenu");
 const btndeletcoment = document.getElementById("delete-coment");
 const botones = document.querySelectorAll(".btn_sale");
+const btnpay = document.getElementById("btn-pay")
 const lista = document.getElementById("lista-compra");
 const totalTexto = document.getElementById("total");
 let total = 0;
 const hamburger = document.getElementById("hamburger");
 const navList = document.querySelector("nav ul");
+  let list = []
+
 
 if (hamburger && navList) {
   hamburger.addEventListener("click", () => {
@@ -221,22 +224,97 @@ if (cerrarsesion) {
   });
 }
 
-botones.forEach(btn => {
-  btn.addEventListener("click", () => {
 
+botones.forEach(btn => {
+
+  btn.addEventListener("click", () => {
     const nombre = btn.dataset.nombre;
     const precio = parseFloat(btn.dataset.precio);
-
-    // Agregar a la lista
+    const idproduct = parseInt(btn.dataset.id);
     const li = document.createElement("li");
     li.textContent = `${nombre} - $${precio}`;
     lista.appendChild(li);
-
-    // Sumar al total
     total =  total + precio;
     totalTexto.textContent = `Total: $${total}`;
+    agregarcarrito(idproduct)
   });
 });
+
+function agregarcarrito (idproduct) {
+
+{
+  const item = list.find(p => p.id === idproduct);
+   if (item) {
+    item.cantidad++;
+  } else {
+    list.push({ id: idproduct, cantidad: 1 });
+  }
+}
+}
+
+if(btnpay){ 
+btnpay.addEventListener("click", async (e) => {
+  e.preventDefault()
+  const itemcontent = {
+   list
+  }
+
+  if (list.length === 0) {
+  responseBox.innerHTML = `
+    <div class="error-card">
+      <h2>Error</h2>
+      <p>No hay productos en el carrito</p>
+    </div>
+  `;
+  return;
+}
+
+for (const item of list) {
+  if (!item.id || !item.cantidad || item.cantidad <= 0) {
+    responseBox.innerHTML = `
+      <div class="error-card">
+        <h2>Error</h2>
+        <p>Hay productos con cantidad inválida</p>
+      </div>
+    `;
+    return;
+  }
+}
+
+  const response = await fetch('/compra', {
+    method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(itemcontent),
+  })
+   const result = await response.json();
+
+    if (result.redirect) {
+      window.location.href = result.redirect;
+      return;
+    }
+
+    if (result.success) {
+      responseBox.innerHTML = `
+        <div class="success-card">
+          <h2>¡Listo!</h2>
+          <p>${result.message}</p>
+        </div>
+      `;
+    } else {
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h2>Error</h2>
+          <p>${result.message}</p>
+        </div>
+      `;
+    }
+})
+}
+
+
 
 if (togglePassword) {
   togglePassword.addEventListener("click", () => {
@@ -284,4 +362,5 @@ if (btndeletcoment){
     }
   });
 }
+
 
