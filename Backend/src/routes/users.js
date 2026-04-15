@@ -7,6 +7,7 @@ import { adminComents } from "../controllers/admin.controller.js";
 import { userProfile } from "../controllers/users.controller.js";
 import { userComents } from "../controllers/users.controller.js";
 import { adminProducts } from "../controllers/admin.controller.js";
+import { userSales } from "../controllers/users.controller.js";
 
 const router = Router();
 
@@ -218,33 +219,65 @@ router.post("/comentario", isLoggedIn, async (req, res) => {
 
 router.post("/compra", isLoggedIn, async (req, res) => {
   try {
+    
     const { list } = req.body;
 
-    if (!list || !Array.isArray(list) || list.length === 0) {
-      return res.json({ success: false, message: "Carrito vacío o inválido" });
+    if (!list || list.length === 0) {
+      return res.json({ success: false, message: "Carrito vacío" });
     }
 
-    for (const item of list) {
-      if (!item.id || !item.cantidad || item.cantidad <= 0) {
-        return res.json({ success: false, message: "Datos de producto inválidos" });
-      }
-    }
-
+    // 1. Validar stock
     for (const item of list) {
       const [rows] = await pool.query(
         "SELECT stock FROM products WHERE id_product = ?",
         [item.id]
       );
 
-      if (rows.length === 0) {
-        return res.json({ success: false, message: `Producto ${item.id} no existe` });
-      }
-
       if (rows[0].stock < item.cantidad) {
-        return res.json({ success: false, message: `Producto no disponible ${item.id}` });
+        return res.json({
+          success: false,
+          message: `Stock insuficiente para el producto ${item.id}`
+        });
       }
     }
 
+    // 2. Calcular total (forma segura)
+    let total = 0;
+
+    for (const item of list) {
+      const [rows] = await pool.query(
+        "SELECT price FROM products WHERE id_product = ?",
+        [item.id]
+      );
+
+      const precioReal = rows[0].price;
+      total += precioReal * item.cantidad;
+    }
+
+    // 3. Insertar venta
+    const [venta] = await pool.query(
+      "INSERT INTO ventas (id_usuario, total) VALUES (?, ?)",
+      [req.user.id_users, total]
+    );
+
+    const idVenta = venta.insertId;
+
+    // 4. Insertar detalles
+    for (const item of list) {
+      const [rows] = await pool.query(
+        "SELECT price FROM products WHERE id_product = ?",
+        [item.id]
+      );
+
+      const precioReal = rows[0].price;
+
+      await pool.query(
+        "INSERT INTO ventas_detalle (id_venta, id_producto, cantidad, precio_unitario, subtotal) VALUES (?, ?, ?, ?, ?)",
+        [idVenta, item.id, item.cantidad, precioReal, precioReal * item.cantidad]
+      );
+    }
+
+    // 5. Descontar stock
     for (const item of list) {
       await pool.query(
         "UPDATE products SET stock = stock - ? WHERE id_product = ?",
@@ -254,23 +287,19 @@ router.post("/compra", isLoggedIn, async (req, res) => {
 
     return res.json({
       success: true,
-      message: "Compra realizada correctamente"
+      message: "Compra realizada correctamente",
+      idVenta
     });
 
   } catch (error) {
-    console.error("Error al insertar la compra:", error);
-    res.status(500).json({
-      success: false,
-      message: "Error en el servidor"
-    });
+    console.error("Error en compra:", error);
+    res.status(500).json({ success: false, message: "Error en el servidor" });
   }
 });
 
-
-
-
 router.get("/perfil", isLoggedIn, userProfile)
 router.get("/comentarios", isLoggedIn, userComents)
+router.get("/compras", isLoggedIn, userSales)
 
 router.get("/login", (req, res) => {
   res.render("formulario-sesion");
