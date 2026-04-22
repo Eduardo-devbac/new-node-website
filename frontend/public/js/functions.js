@@ -166,7 +166,6 @@ if (formproduct){
       creation_date: formproduct.creation_date.value
     }
     console.log(data)
-    alert(data)
   })
 }
 
