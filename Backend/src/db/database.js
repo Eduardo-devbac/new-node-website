@@ -9,25 +9,20 @@ export const pool = mysql.createPool({
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT,
-  /* ssl: {
+  ssl: {
     rejectUnauthorized: false
-  } */
+  }
 });
-pool.getConnection((err, connection) => {
-    if (err) {
-        if (err.code === 'PROTOCOL_CONNECTION_LOST'){
-            console.error('database connection was closed')
-        }
-        if (err.code === 'ERR_CON_COUNT_ERROR'){
-            console.error('database was to many connections')
-        }
-        if (err.code === 'ECONNREFUSED'){
-            console.error('database connection was refused')
-        }
-    }
-    if (connection) connection.release();
-    console.log("database id connect")
-    return;
-    })
 
-    export default pool;
+// Test de conexión
+(async () => {
+  try {
+    const conn = await pool.getConnection();
+    console.log("Database connected to Railway");
+    conn.release();
+  } catch (err) {
+    console.error("Database connection error:", err);
+  }
+})();
+
+export default pool;

@@ -11,6 +11,7 @@ const formlog = document.getElementById("formulario-sesion");
 const btndelete = document.getElementById("delete-user");
 const adminMenu = document.getElementById("adminMenu");
 const btndeletcoment = document.getElementById("delete-coment");
+const btndeletproduct = document.getElementById("delete-product");
 const botones = document.querySelectorAll(".btn_sale");
 const btnpay = document.getElementById("btn-pay")
 const lista = document.getElementById("lista-compra");
@@ -18,6 +19,7 @@ const totalTexto = document.getElementById("total");
 let total = 0;
 const hamburger = document.getElementById("hamburger");
 const navList = document.querySelector("nav ul");
+const formproduct = document.getElementById("formulario_producto")
   let list = []
 
 
@@ -151,6 +153,21 @@ if (formlog) {
       `;
     }
   });
+}
+
+if (formproduct){
+  formproduct.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const data = {
+      name:  formproduct.name.value,
+      description: formproduct.description.value,
+      stock: formproduct.stock.value,
+      price: formproduct.price.value,
+      creation_date: formproduct.creation_date.value
+    }
+    console.log(data)
+    alert(data)
+  })
 }
 
 botoncoment.forEach((coment) => {
@@ -331,8 +348,6 @@ if (btndelete){
   if (e.target.classList.contains("delete-user")) {
     const id = e.target.dataset.id;
 
-    console.log("boton presionado")
-
     const res = await fetch(`/admin/delete/${id}`, {
       method: "DELETE"
     });
@@ -350,8 +365,6 @@ if (btndeletcoment){
     if (e.target.classList.contains("delete-coment")) {
       const id = e.target.dataset.id;
 
-      console.log("boton presionado");
-
       const res = await fetch(`/admin/comentarios/delete/${id}`, {
         method: "DELETE"
       });
@@ -363,4 +376,20 @@ if (btndeletcoment){
   });
 }
 
+if (btndeletproduct){
+  document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("delete-product")) {
+      const id = e.target.dataset.id;
+
+      const res = await fetch(`/admin/productos/delete/${id}`, {
+        method: "DELETE"
+      });
+
+      if (res.ok) {
+        location.reload();
+      }
+    }
+  });
+}
+ 
 

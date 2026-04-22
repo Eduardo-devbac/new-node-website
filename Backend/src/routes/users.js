@@ -226,7 +226,6 @@ router.post("/compra", isLoggedIn, async (req, res) => {
       return res.json({ success: false, message: "Carrito vacío" });
     }
 
-    // 1. Validar stock
     for (const item of list) {
       const [rows] = await pool.query(
         "SELECT stock FROM products WHERE id_product = ?",
@@ -241,7 +240,6 @@ router.post("/compra", isLoggedIn, async (req, res) => {
       }
     }
 
-    // 2. Calcular total (forma segura)
     let total = 0;
 
     for (const item of list) {
@@ -254,7 +252,6 @@ router.post("/compra", isLoggedIn, async (req, res) => {
       total += precioReal * item.cantidad;
     }
 
-    // 3. Insertar venta
     const [venta] = await pool.query(
       "INSERT INTO ventas (id_usuario, total) VALUES (?, ?)",
       [req.user.id_users, total]
@@ -262,7 +259,6 @@ router.post("/compra", isLoggedIn, async (req, res) => {
 
     const idVenta = venta.insertId;
 
-    // 4. Insertar detalles
     for (const item of list) {
       const [rows] = await pool.query(
         "SELECT price FROM products WHERE id_product = ?",
@@ -277,7 +273,6 @@ router.post("/compra", isLoggedIn, async (req, res) => {
       );
     }
 
-    // 5. Descontar stock
     for (const item of list) {
       await pool.query(
         "UPDATE products SET stock = stock - ? WHERE id_product = ?",
@@ -323,6 +318,9 @@ router.get("/registro", (req, res) => {
 router.get("/admin-users", isLoggedIn, isAdmin, adminUsers);
 router.get("/admin-coments", isLoggedIn, isAdmin, adminComents);
 router.get("/admin-products", isLoggedIn, isAdmin, adminProducts);
+router.get("/admin-create_products", isLoggedIn, isAdmin, (req, res) => {
+  res.render("admin/admin-create_products")
+})
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;
@@ -336,6 +334,18 @@ router.delete("/admin/comentarios/delete/:id", isAdmin, async (req, res) => {
   try {
     await pool.query("DELETE FROM comentarios WHERE id_coment = ?", [id]);
     res.json({ success: true });
+  } catch (error) {
+    console.error("Error eliminando comentario:", error);
+    res.json({ success: false });
+  }
+});
+
+router.delete("/admin/productos/delete/:id", isAdmin, async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    await pool.query("DELETE FROM products WHERE id_product = ?", [id]);
+    res.json({ success: true }); 
   } catch (error) {
     console.error("Error eliminando comentario:", error);
     res.json({ success: false });
