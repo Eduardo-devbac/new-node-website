@@ -1,7 +1,7 @@
 const form = document.getElementById("formulario");
 const button = document.getElementById("boton-general");
 const buttongeneral = document.getElementById("busqueda-tienda");
-const botoncoment = document.querySelectorAll(".btn-coment")
+const botoncoment = document.querySelectorAll(".btn-coment");
 const cerrarsesion = document.getElementById("cerrar_sesion");
 const responseBox = document.getElementById("respuesta-formualrio");
 const passwordInput = document.getElementById("password");
@@ -13,15 +13,14 @@ const adminMenu = document.getElementById("adminMenu");
 const btndeletcoment = document.getElementById("delete-coment");
 const btndeletproduct = document.getElementById("delete-product");
 const botones = document.querySelectorAll(".btn_sale");
-const btnpay = document.getElementById("btn-pay")
+const btnpay = document.getElementById("btn-pay");
 const lista = document.getElementById("lista-compra");
 const totalTexto = document.getElementById("total");
 let total = 0;
 const hamburger = document.getElementById("hamburger");
 const navList = document.querySelector("nav ul");
-const formproduct = document.getElementById("formulario_producto")
-  let list = []
-
+const formproduct = document.getElementById("formulario_producto");
+let list = [];
 
 if (hamburger && navList) {
   hamburger.addEventListener("click", () => {
@@ -68,7 +67,7 @@ if (buttongeneral) {
     const busqueda = document.getElementById("buscador-tienda").value;
     alert("Busqueda: " + busqueda);
   });
-} 
+}
 
 if (form) {
   form.addEventListener("submit", async (e) => {
@@ -155,20 +154,64 @@ if (formlog) {
   });
 }
 
-if (formproduct){
+if (formproduct) {
   formproduct.addEventListener("submit", async (e) => {
-    e.preventDefault()
-    const data = {
-      name:  formproduct.name.value,
-      description: formproduct.description.value,
-      stock: formproduct.stock.value,
-      price: formproduct.price.value,
-      creation_date: formproduct.creation_date.value
-    }
-    console.log(data)
-  })
-}
+    e.preventDefault();
 
+    const name = formproduct.name.value.trim();
+    const description = formproduct.description.value.trim();
+    const stock = formproduct.stock.value.trim();
+    const price = formproduct.price.value.trim();
+    const creation_date = formproduct.creation_date.value.trim();
+
+    if (!name || !description || !stock || !price || !creation_date) {
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h2>Campos incompletos</h2>
+          <p>Todos los campos son obligatorios.</p>
+        </div>
+      `;
+      return;
+    }
+
+    if (isNaN(stock) || stock <= 0) {
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h2>Cantidad inválida</h2>
+          <p>La cantidad debe ser un número mayor a 0.</p>
+        </div>
+      `;
+      return;
+    }
+
+    if (isNaN(price) || price <= 0) {
+      responseBox.innerHTML = `
+        <div class="error-card">
+          <h2>Precio inválido</h2>
+          <p>El precio debe ser un número mayor a 0.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const data = { name, description, stock, price, creation_date };
+
+    const response = await fetch(`${window.API_URL}/agregar-producto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    responseBox.innerHTML = `
+      <div class="success-card">
+        <h2>¡Correcto!</h2>
+        <p>El formulario se envio correctamente.</p>
+      </div>
+    `;
+  });
+}
 botoncoment.forEach((coment) => {
   coment.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -176,10 +219,10 @@ botoncoment.forEach((coment) => {
     const textarea = parent.querySelector(".comentario");
     const responseBox = parent.querySelector(".respuesta-formualrio");
     const datacoment = {
-      comentario: textarea.value
-    }
+      comentario: textarea.value,
+    };
 
-     const texto = textarea.value.trim();
+    const texto = textarea.value.trim();
 
     if (texto === "") {
       responseBox.innerHTML = `
@@ -198,7 +241,7 @@ botoncoment.forEach((coment) => {
       body: JSON.stringify(datacoment),
     });
 
-     const result = await response.json();
+    const result = await response.json();
 
     if (result.redirect) {
       window.location.href = result.redirect;
@@ -220,12 +263,8 @@ botoncoment.forEach((coment) => {
         </div>
       `;
     }
-
-    
-  })
-})
-
-
+  });
+});
 
 if (cerrarsesion) {
   cerrarsesion.addEventListener("click", async (event) => {
@@ -240,9 +279,7 @@ if (cerrarsesion) {
   });
 }
 
-
-botones.forEach(btn => {
-
+botones.forEach((btn) => {
   btn.addEventListener("click", () => {
     const nombre = btn.dataset.nombre;
     const precio = parseFloat(btn.dataset.precio);
@@ -250,62 +287,61 @@ botones.forEach(btn => {
     const li = document.createElement("li");
     li.textContent = `${nombre} - $${precio}`;
     lista.appendChild(li);
-    total =  total + precio;
+    total = total + precio;
     totalTexto.textContent = `Total: $${total}`;
-    agregarcarrito(idproduct)
+    agregarcarrito(idproduct);
   });
 });
 
-function agregarcarrito (idproduct) {
-
-{
-  const item = list.find(p => p.id === idproduct);
-   if (item) {
-    item.cantidad++;
-  } else {
-    list.push({ id: idproduct, cantidad: 1 });
+function agregarcarrito(idproduct) {
+  {
+    const item = list.find((p) => p.id === idproduct);
+    if (item) {
+      item.cantidad++;
+    } else {
+      list.push({ id: idproduct, cantidad: 1 });
+    }
   }
 }
-}
 
-if(btnpay){ 
-btnpay.addEventListener("click", async (e) => {
-  e.preventDefault()
-  const itemcontent = {
-   list
-  }
+if (btnpay) {
+  btnpay.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const itemcontent = {
+      list,
+    };
 
-  if (list.length === 0) {
-  responseBox.innerHTML = `
+    if (list.length === 0) {
+      responseBox.innerHTML = `
     <div class="error-card">
       <h2>Error</h2>
       <p>No hay productos en el carrito</p>
     </div>
   `;
-  return;
-}
+      return;
+    }
 
-for (const item of list) {
-  if (!item.id || !item.cantidad || item.cantidad <= 0) {
-    responseBox.innerHTML = `
+    for (const item of list) {
+      if (!item.id || !item.cantidad || item.cantidad <= 0) {
+        responseBox.innerHTML = `
       <div class="error-card">
         <h2>Error</h2>
         <p>Hay productos con cantidad inválida</p>
       </div>
     `;
-    return;
-  }
-}
+        return;
+      }
+    }
 
-  const response = await fetch('/compra', {
-    method: "POST",
+    const response = await fetch("/compra", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
       body: JSON.stringify(itemcontent),
-  })
-   const result = await response.json();
+    });
+    const result = await response.json();
 
     if (result.redirect) {
       window.location.href = result.redirect;
@@ -327,10 +363,8 @@ for (const item of list) {
         </div>
       `;
     }
-})
+  });
 }
-
-
 
 if (togglePassword) {
   togglePassword.addEventListener("click", () => {
@@ -342,30 +376,29 @@ if (togglePassword) {
   });
 }
 
-if (btndelete){
+if (btndelete) {
   document.addEventListener("click", async (e) => {
-  if (e.target.classList.contains("delete-user")) {
-    const id = e.target.dataset.id;
+    if (e.target.classList.contains("delete-user")) {
+      const id = e.target.dataset.id;
 
-    const res = await fetch(`/admin/delete/${id}`, {
-      method: "DELETE"
-    });
+      const res = await fetch(`/admin/delete/${id}`, {
+        method: "DELETE",
+      });
 
-
-    if (res.ok) {
-      location.reload();
+      if (res.ok) {
+        location.reload();
+      }
     }
-  }
-});
+  });
 }
 
-if (btndeletcoment){
+if (btndeletcoment) {
   document.addEventListener("click", async (e) => {
     if (e.target.classList.contains("delete-coment")) {
       const id = e.target.dataset.id;
 
       const res = await fetch(`/admin/comentarios/delete/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
       if (res.ok) {
@@ -375,13 +408,13 @@ if (btndeletcoment){
   });
 }
 
-if (btndeletproduct){
+if (btndeletproduct) {
   document.addEventListener("click", async (e) => {
     if (e.target.classList.contains("delete-product")) {
       const id = e.target.dataset.id;
 
       const res = await fetch(`/admin/productos/delete/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
       if (res.ok) {
@@ -390,5 +423,3 @@ if (btndeletproduct){
     }
   });
 }
- 
-

@@ -65,3 +65,19 @@ export async function adminProducts (req, res) {
     res.status(500).send("Error interno del servidor");
   }
 }
+
+export async function adminSales (req, res) {
+  try{
+    const [ventas] = await pool.query(
+      'SELECT * FROM ventas'
+    );
+
+    res.render("admin/admin-sales", {
+      user: req.user,
+      ventas
+    })
+  }catch (error){
+    console.error("Error cargando productos:", error);
+    res.status(500).send("Error interno del servidor");
+  }
+}

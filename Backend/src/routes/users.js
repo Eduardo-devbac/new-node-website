@@ -8,6 +8,7 @@ import { userProfile } from "../controllers/users.controller.js";
 import { userComents } from "../controllers/users.controller.js";
 import { adminProducts } from "../controllers/admin.controller.js";
 import { userSales } from "../controllers/users.controller.js";
+import { adminSales } from "../controllers/admin.controller.js";
 
 const router = Router();
 
@@ -292,6 +293,12 @@ router.post("/compra", isLoggedIn, async (req, res) => {
   }
 });
 
+router.post("/agregar-producto", isLoggedIn, async (req, res) => {
+  const { name, description, stock, price, creation_date} = req.body
+  console.log(req.body)
+  console.log("informacion recibida")
+})
+
 router.get("/perfil", isLoggedIn, userProfile)
 router.get("/comentarios", isLoggedIn, userComents)
 router.get("/compras", isLoggedIn, userSales)
@@ -321,6 +328,7 @@ router.get("/admin-products", isLoggedIn, isAdmin, adminProducts);
 router.get("/admin-create_products", isLoggedIn, isAdmin, (req, res) => {
   res.render("admin/admin-create_products")
 })
+router.get("/admin-sales", isLoggedIn, isAdmin, adminSales);
 
 router.delete("/admin/delete/:id", isAdmin, async (req, res) => {
   const id = req.params.id;
